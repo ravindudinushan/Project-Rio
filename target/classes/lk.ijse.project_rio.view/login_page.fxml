@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+
+<AnchorPane prefHeight="401.0" prefWidth="748.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.project_rio.controller.LoginPageController">
+   <children>
+      <ImageView fitHeight="428.0" fitWidth="806.0" layoutX="-1.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../lk.ijse.project_rio.assets/login.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="101.0" fitWidth="109.0" layoutX="415.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../lk.ijse.project_rio.assets/logo.png" />
+         </image>
+      </ImageView>
+      <Rectangle fx:id="loginRectangle" arcHeight="20.0" arcWidth="20.0" fill="#a57b9c" height="317.0" layoutX="415.0" layoutY="41.0" opacity="0.39" stroke="BLACK" strokeType="INSIDE" width="291.0">
+         <effect>
+            <InnerShadow />
+         </effect>
+      </Rectangle>
+   </children>
+</AnchorPane>

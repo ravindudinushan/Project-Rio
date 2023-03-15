@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="loadingPane" prefHeight="392.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.project_rio.controller.LoadingPageController">
+   <children>
+      <ImageView fitHeight="398.0" fitWidth="700.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../lk.ijse.project_rio.assets/loading.gif" />
+         </image>
+      </ImageView>
+      <ProgressBar fx:id="proBar" layoutX="280.0" layoutY="361.0" prefHeight="18.0" prefWidth="405.0" progress="0.19" />
+   </children>
+</AnchorPane>
