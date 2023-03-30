@@ -1,8 +1,3 @@
-/*
-    @author DanujaV
-    @created 3/7/23 - 3:55 PM
-*/
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,11 +12,11 @@ public class Launcher extends Application {
     }
     @Override
     public void start(Stage stage) throws Exception {
-        URL resource = Launcher.class.getResource("/lk.ijse.project_rio.view/loading_page.fxml");
+        URL resource = Launcher.class.getResource("lk.ijse.project_rio.view/dashboard_cashier_form.fxml");
         Parent load = FXMLLoader.load(resource);
 
         stage.setScene(new Scene(load));
-        stage.setTitle("Customer Manage");
+        stage.setTitle("Rio Ice Cream");
         stage.centerOnScreen();
         stage.show();
     }
