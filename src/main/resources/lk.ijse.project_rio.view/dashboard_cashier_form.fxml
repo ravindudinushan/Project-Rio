@@ -71,7 +71,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Button>
-            <Button layoutX="64.0" layoutY="399.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="128.0" style="-fx-background-color: brown;" styleClass="dashbuttons" stylesheets="@../lk.ijse.project_rio.styles/style.css" text="Inventory">
+            <Button layoutX="64.0" layoutY="399.0" mnemonicParsing="false" onAction="#clickOnActionInventory" prefHeight="39.0" prefWidth="128.0" style="-fx-background-color: brown;" styleClass="dashbuttons" stylesheets="@../lk.ijse.project_rio.styles/style.css" text="Inventory">
                <effect>
                   <DropShadow />
                </effect>

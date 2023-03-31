@@ -49,4 +49,9 @@ public class DashboardCashierFormController {
         timeAndDate.timenow(lblTime,lblDate);
     }
 
+    public void clickOnActionInventory(ActionEvent actionEvent) throws IOException {
+        Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.project_rio.view/inventory_form.fxml"));
+        cashierChangingPane.getChildren().clear();
+        cashierChangingPane.getChildren().add(load);
+    }
 }

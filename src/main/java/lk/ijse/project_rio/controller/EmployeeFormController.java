@@ -191,6 +191,7 @@ public class EmployeeFormController {
                     txtempemail.setText("");
                     txtempjob.setText("");
                     txtempnic.setText("");
+                    txtempsalary.setText("");
                     getAll();
                 }
             } catch (SQLException e) {

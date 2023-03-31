@@ -1,5 +1,5 @@
 package lk.ijse.project_rio.controller;
 
-public class HomePageCashierController {
+public class OrderFormController {
 
 }

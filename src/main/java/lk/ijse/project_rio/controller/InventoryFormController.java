@@ -14,11 +14,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import lk.ijse.project_rio.dto.Inventory;
-import lk.ijse.project_rio.dto.Supplier;
 import lk.ijse.project_rio.dto.tm.InventoryTM;
-import lk.ijse.project_rio.dto.tm.SupplierTM;
 import lk.ijse.project_rio.model.InventoryModel;
-import lk.ijse.project_rio.model.SupplierModel;
 import lk.ijse.project_rio.util.AlertController;
 
 public class InventoryFormController {
