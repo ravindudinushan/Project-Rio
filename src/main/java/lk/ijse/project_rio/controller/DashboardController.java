@@ -55,4 +55,10 @@ public class DashboardController {
         adminChangingPane.getChildren().clear();
         adminChangingPane.getChildren().add(load);
     }
+
+    public void adminOrderOnAction(ActionEvent actionEvent) throws IOException {
+        Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.project_rio.view/order_form.fxml"));
+        adminChangingPane.getChildren().clear();
+        adminChangingPane.getChildren().add(load);
+    }
 }

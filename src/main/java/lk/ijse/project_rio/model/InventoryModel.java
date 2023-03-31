@@ -7,9 +7,12 @@ import lk.ijse.project_rio.dto.Inventory;
 import lk.ijse.project_rio.dto.tm.InventoryTM;
 import lk.ijse.project_rio.util.CrudUtil;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class InventoryModel {
     public static boolean save(Inventory inventory) throws SQLException {
@@ -84,5 +87,17 @@ public class InventoryModel {
                 ));
             }
             return obList;
+    }
+
+    public static List<String> loadItemIds() throws SQLException {
+        Connection con = DBConnection.getInstance().getConnection();
+        ResultSet resultSet = con.createStatement().executeQuery("SELECT itemId FROM Item");
+
+        List<String> data =new ArrayList<>();
+
+        while (resultSet.next()) {
+            data.add(resultSet.getString(1));
+        }
+        return data;
     }
 }

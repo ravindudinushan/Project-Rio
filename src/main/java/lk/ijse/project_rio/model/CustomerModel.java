@@ -7,9 +7,12 @@ import lk.ijse.project_rio.dto.Customer;
 import lk.ijse.project_rio.dto.tm.CustomerTM;
 import lk.ijse.project_rio.util.CrudUtil;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CustomerModel {
     public static boolean save(Customer customer) throws SQLException {
@@ -83,5 +86,17 @@ public class CustomerModel {
             }
             return null;
 
+    }
+
+    public static List<String> loadIds() throws SQLException {
+        Connection con = DBConnection.getInstance().getConnection();
+        ResultSet resultSet = con.createStatement().executeQuery("SELECT custId FROM Customer");
+
+        List<String> data = new ArrayList<>();
+
+        while (resultSet.next()) {
+            data.add(resultSet.getString(1));
+        }
+        return data;
     }
 }
