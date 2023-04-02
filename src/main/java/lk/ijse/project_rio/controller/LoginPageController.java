@@ -39,7 +39,7 @@ public class LoginPageController {
     private TextField loginTxt1;
 
     @FXML
-    private TextField loginTxt2;
+    private PasswordField loginTxt2;
 
     @FXML
     private ComboBox loginComboBox;

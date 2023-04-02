@@ -1,14 +1,21 @@
 package lk.ijse.project_rio.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 import lk.ijse.project_rio.dto.User;
 import lk.ijse.project_rio.model.UserModel;
 import lk.ijse.project_rio.util.AlertController;
@@ -34,16 +41,21 @@ public class SignupPageFormController {
     private TextField signTxt1;
 
     @FXML
-    private TextField signTxt2;
+    private PasswordField signTxt2;
 
     @FXML
-    private TextField signTxt3;
+    private PasswordField signTxt3;
 
     @FXML
     private TextField signTxt4;
 
     @FXML
     private TextField signTxt5;
+
+    @FXML
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
 
     @FXML
     void clickOnActionLogin(ActionEvent event) {
@@ -79,5 +91,14 @@ public class SignupPageFormController {
        }else{
            AlertController.errormessage("passwords doesn't match");
        }
+    }
+
+    public void OnActionLogin(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/lk.ijse.project_rio.view/login_page.fxml"));
+        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.centerOnScreen();
+        stage.show();
     }
 }
