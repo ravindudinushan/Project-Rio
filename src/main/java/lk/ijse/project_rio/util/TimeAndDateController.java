@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class TimeAndDateController {
-    public void timenow(Label time, Label date){
+    public static void timenow(Label time, Label date){
         Thread thread =new Thread(() ->{
             SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss a");
             SimpleDateFormat sdf1 = new SimpleDateFormat("MMMM,  dd, yyyy");

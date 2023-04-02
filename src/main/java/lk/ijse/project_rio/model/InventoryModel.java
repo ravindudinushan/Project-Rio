@@ -1,8 +1,10 @@
 package lk.ijse.project_rio.model;
 
+import com.mysql.cj.x.protobuf.MysqlxCrud;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import lk.ijse.project_rio.db.DBConnection;
+import lk.ijse.project_rio.dto.CartDTO;
 import lk.ijse.project_rio.dto.Inventory;
 import lk.ijse.project_rio.dto.tm.InventoryTM;
 import lk.ijse.project_rio.util.CrudUtil;
@@ -99,5 +101,26 @@ public class InventoryModel {
             data.add(resultSet.getString(1));
         }
         return data;
+    }
+
+    public static boolean updateQty(List<CartDTO> placeOrderList) throws SQLException {
+        System.out.println("updateQtyList");
+        for(CartDTO placeorder : placeOrderList) {
+            if(!updateQty(placeorder)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static boolean updateQty(CartDTO placeorder) throws SQLException {
+        System.out.println("updateQty");
+        String sql = "UPDATE item SET QtyOnHand = (QtyOnHand - ?) WHERE itemId = ?";
+
+        return CrudUtil.execute(
+                sql,
+                placeorder.getOrderQty(),
+                placeorder.getItemId()
+        );
     }
 }

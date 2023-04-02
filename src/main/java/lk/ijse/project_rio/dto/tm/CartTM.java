@@ -12,9 +12,10 @@ public class CartTM {
     private String itemId;
     private String itemName;
     private String category;
-    private String quantity;
-    private String delivery;
+    private Integer quantity;
     private Double unitPrice;
     private Double total;
     private Button btn;
+
+
 }

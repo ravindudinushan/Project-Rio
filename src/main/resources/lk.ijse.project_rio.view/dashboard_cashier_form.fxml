@@ -39,7 +39,7 @@
                   <Image url="@../lk.ijse.project_rio.assets/homePagePane.png" />
                </image>
             </ImageView>
-            <Button layoutX="64.0" layoutY="140.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="128.0" style="-fx-background-color: brown;" styleClass="dashbuttons" stylesheets="@../lk.ijse.project_rio.styles/style.css" text="Home">
+            <Button layoutX="61.0" layoutY="205.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="128.0" style="-fx-background-color: brown;" styleClass="dashbuttons" stylesheets="@../lk.ijse.project_rio.styles/style.css" text="Home">
                <effect>
                   <DropShadow />
                </effect>
@@ -47,7 +47,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Button>
-            <Button fx:id="cashierDashbordBtn" layoutX="64.0" layoutY="205.0" mnemonicParsing="false" onAction="#cashierCustomerOnAction" prefHeight="39.0" prefWidth="128.0" style="-fx-background-color: brown;" styleClass="dashbuttons" stylesheets="@../lk.ijse.project_rio.styles/style.css" text="Customer">
+            <Button fx:id="cashierDashbordBtn" layoutX="61.0" layoutY="269.0" mnemonicParsing="false" onAction="#cashierCustomerOnAction" prefHeight="39.0" prefWidth="128.0" style="-fx-background-color: brown;" styleClass="dashbuttons" stylesheets="@../lk.ijse.project_rio.styles/style.css" text="Customer">
                <effect>
                   <DropShadow />
                </effect>
@@ -55,15 +55,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Button>
-            <Button layoutX="62.0" layoutY="269.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="128.0" style="-fx-background-color: brown;" styleClass="dashbuttons" stylesheets="@../lk.ijse.project_rio.styles/style.css" text="Payment">
-               <effect>
-                  <DropShadow />
-               </effect>
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Button>
-            <Button layoutX="61.0" layoutY="335.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="128.0" style="-fx-background-color: brown;" styleClass="dashbuttons" stylesheets="@../lk.ijse.project_rio.styles/style.css" text="Order">
+            <Button layoutX="61.0" layoutY="335.0" mnemonicParsing="false" onAction="#cashierOrderOnAction" prefHeight="39.0" prefWidth="128.0" style="-fx-background-color: brown;" styleClass="dashbuttons" stylesheets="@../lk.ijse.project_rio.styles/style.css" text="Order">
                <effect>
                   <DropShadow />
                </effect>
@@ -92,7 +84,7 @@
                   <Image url="@../lk.ijse.project_rio.assets/icons8-logout-100.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="138.0" fitWidth="150.0" layoutX="59.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="138.0" fitWidth="150.0" layoutX="59.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../lk.ijse.project_rio.assets/logo.png" />
                </image>
@@ -105,8 +97,14 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Button>
-            <Label fx:id="lblDate" layoutX="64.0" layoutY="14.0" text="Date" />
-            <Label fx:id="lblTime" layoutX="166.0" layoutY="14.0" text="Time" />
+            <Label fx:id="lblDate" layoutX="64.0" layoutY="9.0" text="Date">
+               <font>
+                  <Font name="System Bold Italic" size="14.0" />
+               </font></Label>
+            <Label fx:id="lblTime" layoutX="75.0" layoutY="35.0" text="Time">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
          </children>
       </AnchorPane>
    </children>

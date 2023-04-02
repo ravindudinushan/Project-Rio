@@ -54,4 +54,10 @@ public class DashboardCashierFormController {
         cashierChangingPane.getChildren().clear();
         cashierChangingPane.getChildren().add(load);
     }
+
+    public void cashierOrderOnAction(ActionEvent actionEvent) throws IOException {
+        Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.project_rio.view/order_form.fxml"));
+        cashierChangingPane.getChildren().clear();
+        cashierChangingPane.getChildren().add(load);
+    }
 }

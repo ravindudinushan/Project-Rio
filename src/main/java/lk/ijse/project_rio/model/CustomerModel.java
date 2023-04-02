@@ -99,4 +99,16 @@ public class CustomerModel {
         }
         return data;
     }
+
+    public static String getCustName(String custId) throws SQLException {
+        String sql = "SELECT custName FROM customer WHERE custId=?";
+        ResultSet resultSet = CrudUtil.execute(sql,custId);
+
+        if(resultSet.next()){
+            return (new String(
+                    resultSet.getString(1)
+            ));
+        }
+        return null;
+    }
 }

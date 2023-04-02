@@ -12,6 +12,6 @@
             <Image url="@../lk.ijse.project_rio.assets/loading.gif" />
          </image>
       </ImageView>
-      <ProgressBar fx:id="proBar" layoutX="280.0" layoutY="361.0" prefHeight="18.0" prefWidth="405.0" progress="0.19" />
+      <ProgressBar fx:id="proBar" layoutX="280.0" layoutY="366.0" prefHeight="10.0" prefWidth="405.0" progress="0.19" />
    </children>
 </AnchorPane>
