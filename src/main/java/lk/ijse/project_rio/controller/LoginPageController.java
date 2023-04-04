@@ -19,7 +19,6 @@ import javafx.util.Duration;
 import lk.ijse.project_rio.dto.User;
 import lk.ijse.project_rio.model.UserModel;
 import lk.ijse.project_rio.util.LoginMessageController;
-import org.controlsfx.control.tableview2.filter.filtereditor.SouthFilter;
 
 public class LoginPageController {
 
@@ -61,12 +60,6 @@ public class LoginPageController {
 
     @FXML
     void clickOnActionLogin(ActionEvent actionEvent) throws IOException, SQLException {
-//        Parent root = FXMLLoader.load(getClass().getResource("/lk.ijse.project_rio.view/dashboard_form.fxml"));
-//        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//        scene = new Scene(root);
-//        stage.setScene(scene);
-//        stage.centerOnScreen();
-//        stage.show();
         String username = loginTxt1.getText();
         String password = loginTxt2.getText();
         String combo = String.valueOf(loginComboBox.getValue());

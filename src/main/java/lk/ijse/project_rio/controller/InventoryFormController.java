@@ -13,6 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import lk.ijse.project_rio.dto.Inventory;
 import lk.ijse.project_rio.dto.tm.InventoryTM;
 import lk.ijse.project_rio.model.InventoryModel;
@@ -74,6 +75,9 @@ public class InventoryFormController {
     private Button updateBtn;
 
     @FXML
+    private AnchorPane adminChangingPane;
+
+    @FXML
     void clickOnActionDelete(ActionEvent event) {
         String id = itemId.getText();
 
@@ -112,11 +116,11 @@ public class InventoryFormController {
             boolean isSaved = InventoryModel.save(inventory);
             if (isSaved) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Item saved!").show();
-                itemId.setText("");
-                itemName.setText("");
-                itemCategory.setText("");
-                itemUnitPrice.setText("");
-                itemQtyOnHand.setText("");
+                itemId.setText(null);
+                itemName.setText(null);
+                itemCategory.setText(null);
+                itemUnitPrice.setText(null);
+                itemQtyOnHand.setText(null);
                 getAll();
             }
         } catch (SQLException e) {
@@ -227,6 +231,11 @@ public class InventoryFormController {
 
     @FXML
     void initialize() {
+        itemId.setText(null);
+        itemName.setText(null);
+        itemCategory.setText(null);
+        itemUnitPrice.setText(null);
+        itemQtyOnHand.setText(null);
         setCellValueFactory();
         getAll();
         assert itemId != null : "fx:id=\"ItemId\" was not injected: check your FXML file 'inventory_form.fxml'.";

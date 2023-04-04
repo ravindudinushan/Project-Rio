@@ -15,6 +15,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import lk.ijse.project_rio.dto.Employee;
 import lk.ijse.project_rio.dto.tm.EmployeeTM;
 import lk.ijse.project_rio.model.EmployeeModel;
@@ -99,6 +100,9 @@ public class EmployeeFormController {
 
     @FXML
     private TableView<EmployeeTM> tblEmployee;
+
+    @FXML
+    private AnchorPane adminChangingPane;
 
 
     @FXML

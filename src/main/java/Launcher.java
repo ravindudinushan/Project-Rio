@@ -12,7 +12,7 @@ public class Launcher extends Application {
     }
     @Override
     public void start(Stage stage) throws Exception {
-        URL resource = Launcher.class.getResource("lk.ijse.project_rio.view/loading_page_form.fxml");
+        URL resource = Launcher.class.getResource("lk.ijse.project_rio.view/dashboard_cashier_form.fxml");
         Parent load = FXMLLoader.load(resource);
 
         stage.setScene(new Scene(load));

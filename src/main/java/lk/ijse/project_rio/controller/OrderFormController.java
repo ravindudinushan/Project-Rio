@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import lk.ijse.project_rio.dto.CartDTO;
 import lk.ijse.project_rio.dto.Inventory;
 import lk.ijse.project_rio.dto.tm.CartTM;
@@ -105,6 +106,9 @@ public class OrderFormController {
 
     @FXML
     private Label lblNetTotle;
+
+    @FXML
+    private AnchorPane adminChangingPane;
 
 
     private ObservableList<CartTM> obList = FXCollections.observableArrayList();

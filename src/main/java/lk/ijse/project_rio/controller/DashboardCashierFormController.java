@@ -9,22 +9,31 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.project_rio.util.BtnColorController;
+import lk.ijse.project_rio.util.LogOutController;
 import lk.ijse.project_rio.util.TimeAndDateController;
 
 public class DashboardCashierFormController {
 
     @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
-
-    @FXML
     private AnchorPane cashierChangingPane;
 
     @FXML
-    private Button cashierDashbordBtn;
+    private Button customerbtn;
+
+    @FXML
+    private Button deliverybtn;
+
+    @FXML
+    private Button eventbtn;
+
+    @FXML
+    private Button homebtn;
+
+    @FXML
+    private Button inventorybtn;
 
     @FXML
     private Label lblDate;
@@ -32,13 +41,19 @@ public class DashboardCashierFormController {
     @FXML
     private Label lblTime;
 
+    @FXML
+    private Button orderbtn;
 
+    @FXML
+    private AnchorPane cashDashPane;
 
     @FXML
     void cashierCustomerOnAction(ActionEvent event) throws IOException {
         Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.project_rio.view/customer_form.fxml"));
         cashierChangingPane.getChildren().clear();
         cashierChangingPane.getChildren().add(load);
+        BtnColorController.btncolor(customerbtn,cashierChangingPane);
+
     }
 
     @FXML
@@ -53,11 +68,25 @@ public class DashboardCashierFormController {
         Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.project_rio.view/inventory_form.fxml"));
         cashierChangingPane.getChildren().clear();
         cashierChangingPane.getChildren().add(load);
+        BtnColorController.btncolor(inventorybtn,cashierChangingPane);
     }
 
     public void cashierOrderOnAction(ActionEvent actionEvent) throws IOException {
         Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.project_rio.view/order_form.fxml"));
         cashierChangingPane.getChildren().clear();
         cashierChangingPane.getChildren().add(load);
+        BtnColorController.btncolor(orderbtn,cashierChangingPane);
+
+    }
+
+    public void cashierEventOnAction(ActionEvent actionEvent) throws IOException {
+        Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.project_rio.view/event_form.fxml"));
+        cashierChangingPane.getChildren().clear();
+        cashierChangingPane.getChildren().add(load);
+        BtnColorController.btncolor(eventbtn,cashierChangingPane);
+    }
+
+    public void logoutbtnOnMousePressed(MouseEvent mouseEvent) throws IOException {
+        LogOutController.logout(cashDashPane);
     }
 }

@@ -13,6 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import lk.ijse.project_rio.dto.Customer;
 import lk.ijse.project_rio.dto.tm.CustomerTM;
 import lk.ijse.project_rio.model.CustomerModel;
@@ -73,6 +74,12 @@ public class CustomerFormController {
 
     @FXML
     private Button updateBtn;
+
+    @FXML
+    private AnchorPane cashierChangingPane;
+
+    @FXML
+    private AnchorPane adminChangingPane;
 
     @FXML
     void clickOnActionDelete(ActionEvent event) {
@@ -229,6 +236,11 @@ public class CustomerFormController {
 
     @FXML
     void initialize() {
+        custId.setText(null);
+        custName.setText(null);
+        custAddress.setText(null);
+        custEmail.setText(null);
+        custContact.setText(null);
         setCellValueFactory();
         getAll();
         assert custAddress != null : "fx:id=\"custAddress\" was not injected: check your FXML file 'customer_form.fxml'.";

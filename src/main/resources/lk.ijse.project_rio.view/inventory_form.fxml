@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="650.0" prefWidth="1036.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.project_rio.controller.InventoryFormController">
+<AnchorPane fx:id="adminChangingPane" prefHeight="650.0" prefWidth="1036.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.project_rio.controller.InventoryFormController">
    <children>
       <ImageView fitHeight="650.0" fitWidth="1290.0" layoutX="-249.0" pickOnBounds="true" preserveRatio="true">
          <image>

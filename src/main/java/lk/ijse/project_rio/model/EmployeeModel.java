@@ -7,9 +7,12 @@ import lk.ijse.project_rio.dto.Employee;
 import lk.ijse.project_rio.dto.tm.EmployeeTM;
 import lk.ijse.project_rio.util.CrudUtil;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EmployeeModel {
     public static boolean save(Employee employee) throws SQLException {
@@ -97,5 +100,17 @@ public class EmployeeModel {
     public static boolean delete(String id) throws SQLException {
         String sql = "DELETE FROM employee WHERE empId=?";
         return CrudUtil.execute(sql,id);
+    }
+
+    public static List<String> loadIds() throws SQLException {
+        Connection con = DBConnection.getInstance().getConnection();
+        ResultSet resultSet = con.createStatement().executeQuery("SELECT empId FROM employee");
+
+        List<String> data =new ArrayList<>();
+
+        while (resultSet.next()) {
+            data.add(resultSet.getString(1));
+        }
+        return data;
     }
 }
