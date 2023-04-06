@@ -1,8 +1,6 @@
 package lk.ijse.project_rio.controller;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -48,12 +46,14 @@ public class DashboardCashierFormController {
     private AnchorPane cashDashPane;
 
     @FXML
+    private Button supplyLoadbtn;
+
+    @FXML
     void cashierCustomerOnAction(ActionEvent event) throws IOException {
         Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.project_rio.view/customer_form.fxml"));
         cashierChangingPane.getChildren().clear();
         cashierChangingPane.getChildren().add(load);
         BtnColorController.btncolor(customerbtn,cashierChangingPane);
-
     }
 
     @FXML
@@ -76,7 +76,6 @@ public class DashboardCashierFormController {
         cashierChangingPane.getChildren().clear();
         cashierChangingPane.getChildren().add(load);
         BtnColorController.btncolor(orderbtn,cashierChangingPane);
-
     }
 
     public void cashierEventOnAction(ActionEvent actionEvent) throws IOException {
@@ -88,5 +87,19 @@ public class DashboardCashierFormController {
 
     public void logoutbtnOnMousePressed(MouseEvent mouseEvent) throws IOException {
         LogOutController.logout(cashDashPane);
+    }
+
+    public void cashierSupplyLoadOnAction(ActionEvent actionEvent) throws IOException {
+        Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.project_rio.view/new_supply_load_form.fxml"));
+        cashierChangingPane.getChildren().clear();
+        cashierChangingPane.getChildren().add(load);
+        BtnColorController.btncolor(supplyLoadbtn,cashierChangingPane);
+    }
+
+    public void clickOnActionDelivery(ActionEvent actionEvent) throws IOException {
+        Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.project_rio.view/delivery_form.fxml"));
+        cashierChangingPane.getChildren().clear();
+        cashierChangingPane.getChildren().add(load);
+        BtnColorController.btncolor(deliverybtn,cashierChangingPane);
     }
 }

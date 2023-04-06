@@ -6,9 +6,12 @@ import lk.ijse.project_rio.dto.Supplier;
 import lk.ijse.project_rio.dto.tm.SupplierTM;
 import lk.ijse.project_rio.util.CrudUtil;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class SupplierModel {
@@ -82,5 +85,38 @@ public class SupplierModel {
 
             return pstm.executeUpdate() > 0;
         }
+    }
+
+    public static List<String> loadSupIds() throws SQLException {
+        Connection con = DBConnection.getInstance().getConnection();
+        ResultSet resultSet = con.createStatement().executeQuery("SELECT supId FROM supplier");
+
+        List<String> data =new ArrayList<>();
+
+        while (resultSet.next()) {
+            data.add(resultSet.getString(1));
+        }
+        return data;
+    }
+    public static String getNextSupId() throws SQLException {
+        String sql = "SELECT supId FROM supplier ORDER BY supId DESC LIMIT 1";
+
+        ResultSet resultSet = CrudUtil.execute(sql);
+
+        if (resultSet.next()) {
+            return splitOrderId(resultSet.getString(1));
+        }
+        return splitOrderId(null);
+    }
+
+    private static String splitOrderId(String currentId) {
+        if(currentId != null) {
+            String[] strings = currentId.split("SLD-");
+            int id = Integer.parseInt(strings[1]);
+            ++id;
+            String digit=String.format("%03d", id);
+            return "SLD-" + digit;
+        }
+        return "SLD-001";
     }
 }

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="adminChangingPane" prefHeight="650.0" prefWidth="1036.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.project_rio.controller.DeliveryFormController">
+   <children>
+      <ImageView fitHeight="650.0" fitWidth="1290.0" layoutX="-249.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../lk.ijse.project_rio.assets/home.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="389.0" layoutY="28.0" text="Delivery Details" textFill="#e61a5a">
+         <font>
+            <Font name="Times New Roman Bold Italic" size="36.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtempjob" layoutX="417.0" layoutY="183.0" prefHeight="25.0" prefWidth="205.0" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
+      <TextField fx:id="txtempemail" layoutX="417.0" layoutY="248.0" prefHeight="25.0" prefWidth="205.0" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
+      <DatePicker fx:id="txtempdob" layoutX="45.0" layoutY="247.0" prefHeight="25.0" prefWidth="205.0" />
+      <TableView fx:id="tblEmployee" layoutX="39.0" layoutY="352.0" opacity="0.77" prefHeight="267.0" prefWidth="964.0">
+         <columns>
+            <TableColumn fx:id="empcolid" prefWidth="68.6666259765625" text="Order ID" />
+            <TableColumn fx:id="empcolname" prefWidth="110.66668701171875" text="Delivery ID" />
+            <TableColumn fx:id="empcolnic" prefWidth="111.99996948242188" text="Delivery Status" />
+            <TableColumn minWidth="0.0" prefWidth="1.33331298828125" text="C2" />
+            <TableColumn fx:id="empcoldob" prefWidth="121.33331298828125" text="Date Of Birth" />
+            <TableColumn fx:id="empcoladdress" prefWidth="127.33334350585938" text="Address" />
+            <TableColumn fx:id="empcolemail" prefWidth="145.33331298828125" text="E Mail" />
+            <TableColumn fx:id="empcoljob" minWidth="0.0" prefWidth="98.6666259765625" text="Job Title" />
+            <TableColumn fx:id="empcolcontact" prefWidth="112.66668701171875" text="Contact" />
+            <TableColumn fx:id="empcolsalary" prefWidth="62.66668701171875" text="Salary" />
+         </columns>
+      </TableView>
+      <Label layoutX="425.0" layoutY="98.0" text="Employee ID:" />
+      <Label layoutX="45.0" layoutY="162.0" text="Delivery Status:" />
+      <Label layoutX="45.0" layoutY="229.0" text="Deliverd Date:" />
+      <Label layoutX="417.0" layoutY="162.0" text="Location:" />
+      <Label layoutX="417.0" layoutY="229.0" text="Due Date:" />
+      <Label layoutX="845.0" layoutY="136.0" text="Search By Delivery Status:" />
+      <Label layoutX="899.0" layoutY="187.0" text="Search By Date:" />
+      <Button fx:id="btnUpdate" layoutX="816.0" layoutY="304.0" mnemonicParsing="false" onAction="#btnUpdateOnAction" prefHeight="25.0" prefWidth="72.0" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" text="Update">
+         <effect>
+            <DropShadow />
+         </effect>
+      </Button>
+      <Button fx:id="btnDelete" layoutX="904.0" layoutY="304.0" mnemonicParsing="false" onAction="#btnDeleteOnAction" prefHeight="25.0" prefWidth="72.0" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" text="Delete">
+         <effect>
+            <DropShadow />
+         </effect>
+      </Button>
+      <TextField fx:id="txtSearchOrderId" layoutX="779.0" layoutY="107.0" onAction="#txtSearchOrderIdOnAction" onKeyTyped="#txtSearchKeyTypedOrderId" opacity="0.83" prefHeight="25.0" prefWidth="205.0" promptText="Search by Order ID" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
+      <Label layoutX="860.0" layoutY="239.0" text="Search By Delivery ID:" />
+      <ComboBox layoutX="425.0" layoutY="119.0" prefHeight="25.0" prefWidth="189.0" />
+      <Label layoutX="894.0" layoutY="83.0" text="Search Order ID:" />
+      <TextField fx:id="txtSearchStatus" layoutX="779.0" layoutY="158.0" onAction="#txtSearchStatusOnAction" onKeyTyped="#txtSearchKeyTypedStatus" opacity="0.83" prefHeight="25.0" prefWidth="205.0" promptText="Search By Delivery Status" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
+      <TextField fx:id="txtSearchDueDate" layoutX="779.0" layoutY="208.0" onAction="#txtSearchDueDateOnAction" onKeyTyped="#txtSearchKeyTypedDueDate" opacity="0.83" prefHeight="25.0" prefWidth="205.0" promptText="Search By Due Date" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
+      <TextField fx:id="txtSearchDeliveryId" layoutX="772.0" layoutY="260.0" onAction="#txtSearchDeliveryIdOnAction" onKeyTyped="#txtSearchKeyTypedDeliveryId" opacity="0.83" prefHeight="25.0" prefWidth="205.0" promptText="Search By Delivery ID" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
+      <ComboBox layoutX="45.0" layoutY="183.0" prefHeight="25.0" prefWidth="189.0" />
+   </children>
+</AnchorPane>
