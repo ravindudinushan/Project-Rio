@@ -99,7 +99,7 @@ public class SupplierModel {
         return data;
     }
     public static String getNextSupId() throws SQLException {
-        String sql = "SELECT supId FROM supplier ORDER BY supId DESC LIMIT 1";
+        String sql = "SELECT supplierOrderId FROM supplierorderdetail ORDER BY supplierOrderId DESC LIMIT 1";
 
         ResultSet resultSet = CrudUtil.execute(sql);
 

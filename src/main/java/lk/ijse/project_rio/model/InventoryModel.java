@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import lk.ijse.project_rio.db.DBConnection;
 import lk.ijse.project_rio.dto.CartDTO;
 import lk.ijse.project_rio.dto.Inventory;
+import lk.ijse.project_rio.dto.NewLoadSupplier;
 import lk.ijse.project_rio.dto.tm.InventoryTM;
 import lk.ijse.project_rio.util.CrudUtil;
 
@@ -121,6 +122,25 @@ public class InventoryModel {
                 sql,
                 placeorder.getOrderQty(),
                 placeorder.getItemId()
+        );
+    }
+
+    public static boolean addQty(List<NewLoadSupplier> newLoadList) throws SQLException {
+        for(NewLoadSupplier newLoadSupplier : newLoadList) {
+            if(!addQty(newLoadSupplier)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static boolean addQty(NewLoadSupplier newLoadSupplier) throws SQLException {
+        String sql = "UPDATE item SET QtyOnHand = (QtyOnHand + ?) WHERE itemId = ?";
+
+        return CrudUtil.execute(
+                sql,
+                newLoadSupplier.getSupQty(),
+                newLoadSupplier.getItemId()
         );
     }
 }

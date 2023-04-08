@@ -13,15 +13,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import lk.ijse.project_rio.dto.CartDTO;
 import lk.ijse.project_rio.dto.Inventory;
+import lk.ijse.project_rio.dto.NewLoadSupplier;
 import lk.ijse.project_rio.dto.Supplier;
-import lk.ijse.project_rio.dto.tm.CartTM;
+import lk.ijse.project_rio.dto.tm.AddSupplyLoadTM;
 import lk.ijse.project_rio.model.InventoryModel;
 import lk.ijse.project_rio.model.NewSupplyLoadModel;
-import lk.ijse.project_rio.model.OrderModel;
 import lk.ijse.project_rio.model.SupplierModel;
 import lk.ijse.project_rio.util.TimeAndDateController;
 
@@ -88,10 +88,10 @@ public class NewSupplyLoadFormController {
     private ImageView searchIcon;
 
     @FXML
-    private TableView<?> tblNewSupplyLoad;
+    private TableView<AddSupplyLoadTM> tblNewSupplyLoad;
 
     @FXML
-    private TextField txtEventName;
+    private TextField txtQuantity;
 
     @FXML
     private TextField txtSearch;
@@ -101,91 +101,84 @@ public class NewSupplyLoadFormController {
 
     @FXML
     void btnAddSupplyLoadOnAction(ActionEvent event) {
-//        String oId = comItemId.getText();
-//        String cusId = txtCustId.getValue();
-//        Boolean delivery = radioBtn.isSelected();
-//        String totle = lblNetTotle.getText();
-//
-//        List<CartDTO> cartDTOList = new ArrayList<>();
-//
-//        for (int i = 0; i < tblNewSupplyLoad.getItems().size(); i++) {
-//            CartTM cartTM = obList.get(i);
-//
-//            CartDTO dto = new CartDTO(
-//                    cartTM.getItemId(),
-//                    cartTM.getQuantity()
-//            );
-//            cartDTOList.add(dto);
-//        }
-//
-//        boolean isPlaced = false;
-//        try {
-//            isPlaced = SupplierModel.placeOrder(oId, cusId, delivery, totle, cartDTOList);
-//            if(isPlaced) {
-//                new Alert(Alert.AlertType.CONFIRMATION, "Order Placed").show();
-//            } else {
-//                new Alert(Alert.AlertType.ERROR, "Order Not Placed").show();
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            new Alert(Alert.AlertType.ERROR, "SQL Error").show();
-//        }
+        String loadId = lblSupId.getText();
+        String supId = comSupId.getValue();
+        String totPrice = txtSupLoad.getText();
+
+        List<NewLoadSupplier> newLoadList = new ArrayList<>();
+
+        for (int i = 0; i < tblNewSupplyLoad.getItems().size(); i++) {
+            AddSupplyLoadTM addSupplyLoadTM = obList.get(i);
+
+            NewLoadSupplier dto = new NewLoadSupplier(
+                    addSupplyLoadTM.getItemId(),
+                    addSupplyLoadTM.getQuantity()
+            );
+            newLoadList.add(dto);
+        }
+
+        boolean isPlaced = false;
+        try {
+            isPlaced = NewSupplyLoadModel.placeOrder(loadId, supId, totPrice,newLoadList);
+            if(isPlaced) {
+                new Alert(Alert.AlertType.CONFIRMATION, "Order Placed").show();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Order Not Placed").show();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "SQL Error").show();
+        }
     }
+    private ObservableList<AddSupplyLoadTM> obList = FXCollections.observableArrayList();
 
     @FXML
     void btnAddToLoadOnAction(ActionEvent event) {
-//        String code = comItemId.getValue();
-//        String name = lblItemName.getText();
-//        String category = lblCategory.getText();
-//        int qty = Integer.parseInt(lblQty.getText());
-//        double unitPrice = Double.parseDouble(lblItemUnitPrice.getText());
-//        double total = qty * unitPrice;
-//        Button btnRemove = new Button("Remove");
-//        btnRemove.setCursor(Cursor.HAND);
-//
-//        setRemoveBtnOnAction(btnRemove); /* set action to the btnRemove */
-//
-//        if (!obList.isEmpty()) {
-//            for (int i = 0; i < tblNewSupplyLoad.getItems().size(); i++) {
-//                if (itemIdCol.getCellData(i).equals(code)) {
-//                    qty += (int) qtyCol.getCellData(i);
-//                    total = qty * unitPrice;
-//
-//                    obList.get(i).setQuantity(qty);
-//                    obList.get(i).setTotal(total);
-//
-//                    tblNewSupplyLoad.refresh();
-//                    calculateNetTotal();
-//                    return;
-//                }
-//            }
-//        }
-//        CartTM tm = new CartTM(code, name, category, qty, unitPrice, total, btnRemove);
-//
-//        obList.add(tm);
-//        tblOrder.setItems(obList);
-//        calculateNetTotal();
-//
-//        txtQty.setText("");
+        String code = comItemId.getValue();
+        String name = lblItemName.getText();
+        String category = lblCategory.getText();
+        int qty = Integer.parseInt(txtQuantity.getText());
+        Button btnRemove = new Button("Remove");
+        btnRemove.setCursor(Cursor.HAND);
+
+        setRemoveBtnOnAction(btnRemove); /* set action to the btnRemove */
+
+        if (!obList.isEmpty()) {
+            for (int i = 0; i < tblNewSupplyLoad.getItems().size(); i++) {
+                if (ItemIdCol.getCellData(i).equals(code)) {
+                    qty += (int) quantityCol.getCellData(i);
+
+                    obList.get(i).setQuantity(qty);
+
+                    tblNewSupplyLoad.refresh();
+                    return;
+                }
+            }
+        }
+        AddSupplyLoadTM tm = new AddSupplyLoadTM(code, name, category, qty, btnRemove);
+
+        obList.add(tm);
+        tblNewSupplyLoad.setItems(obList);
+
+        txtQuantity.setText("");
     }
 
     private void setRemoveBtnOnAction(Button btn) {
-//        btn.setOnAction((e) -> {
-//            ButtonType yes = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
-//            ButtonType no = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
-//
-//            Optional<ButtonType> result = new Alert(Alert.AlertType.INFORMATION, "Are you sure to remove?", yes, no).showAndWait();
-//
-//            if (result.orElse(no) == yes) {
-//
-//                int index = tblNewSupplyLoad.getSelectionModel().getSelectedIndex();
-//                obList.remove(index);
-//
-//                tblNewSupplyLoad.refresh();
-//                calculateNetTotal();
-//            }
-//
-//        });
+        btn.setOnAction((e) -> {
+            ButtonType yes = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
+            ButtonType no = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+            Optional<ButtonType> result = new Alert(Alert.AlertType.INFORMATION, "Are you sure to remove?", yes, no).showAndWait();
+
+            if (result.orElse(no) == yes) {
+
+                int index = tblNewSupplyLoad.getSelectionModel().getSelectedIndex();
+                obList.remove(index);
+
+                tblNewSupplyLoad.refresh();
+            }
+
+        });
     }
 
 
@@ -253,8 +246,17 @@ public class NewSupplyLoadFormController {
         }
     }
 
+    void setCellValueFactory() {
+        ItemIdCol.setCellValueFactory(new PropertyValueFactory<>("itemId"));
+        ItemNameCol.setCellValueFactory(new PropertyValueFactory<>("itemName"));
+        categoryCol.setCellValueFactory(new PropertyValueFactory<>("category"));
+        quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        actionCol.setCellValueFactory(new PropertyValueFactory<>("action"));
+    }
+
     @FXML
-    void initialize() {
+    void initialize() throws SQLException {
+        setCellValueFactory();
         loadItemIds();
         loadSupplierIds();
         generateNextSupId();
@@ -278,7 +280,6 @@ public class NewSupplyLoadFormController {
         assert quantityCol != null : "fx:id=\"quantityCol\" was not injected: check your FXML file 'new_supply_load_form.fxml'.";
         assert searchIcon != null : "fx:id=\"searchIcon\" was not injected: check your FXML file 'new_supply_load_form.fxml'.";
         assert tblNewSupplyLoad != null : "fx:id=\"tblNewSupplyLoad\" was not injected: check your FXML file 'new_supply_load_form.fxml'.";
-        assert txtEventName != null : "fx:id=\"txtEventName\" was not injected: check your FXML file 'new_supply_load_form.fxml'.";
         assert txtSearch != null : "fx:id=\"txtSearch\" was not injected: check your FXML file 'new_supply_load_form.fxml'.";
         assert txtSupLoad != null : "fx:id=\"txtSupLoad\" was not injected: check your FXML file 'new_supply_load_form.fxml'.";
 

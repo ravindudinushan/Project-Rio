@@ -24,7 +24,7 @@
             <Font name="Times New Roman Bold Italic" size="36.0" />
          </font>
       </Label>
-      <TextField fx:id="txtEventName" layoutX="629.0" layoutY="120.0" prefHeight="25.0" prefWidth="83.0" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
+      <TextField fx:id="txtQuantity" layoutX="637.0" layoutY="120.0" prefHeight="25.0" prefWidth="83.0" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
       <TableView fx:id="tblNewSupplyLoad" layoutX="196.0" layoutY="325.0" opacity="0.77" prefHeight="267.0" prefWidth="609.0">
          <columns>
             <TableColumn fx:id="ItemIdCol" prefWidth="76.00003051757812" text="Item ID" />
@@ -39,7 +39,7 @@
       <Label layoutX="46.0" layoutY="197.0" text="Item ID:" />
       <Label layoutX="418.0" layoutY="101.0" text="Supply Load ID:" />
       <Label layoutX="418.0" layoutY="226.0" text="Time:" />
-      <Label layoutX="638.0" layoutY="101.0" text="Event Name:" />
+      <Label layoutX="638.0" layoutY="101.0" prefHeight="17.0" prefWidth="81.0" text="Item Quantity:" />
       <Button fx:id="addToLoadBtn" layoutX="772.0" layoutY="292.0" mnemonicParsing="false" onAction="#btnAddToLoadOnAction" prefHeight="25.0" prefWidth="94.0" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" text="Add To Load">
          <effect>
             <DropShadow />
