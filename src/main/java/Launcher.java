@@ -7,9 +7,7 @@ import javafx.stage.Stage;
 import java.net.URL;
 
 public class Launcher extends Application {
-    public static void main(String[] args) {
-        launch();
-    }
+    public static void main(String[] args) { launch(); }
     @Override
     public void start(Stage stage) throws Exception {
         URL resource = Launcher.class.getResource("lk.ijse.project_rio.view/loading_page_form.fxml");

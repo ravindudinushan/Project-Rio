@@ -1,5 +1,6 @@
 package lk.ijse.project_rio.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -11,10 +12,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import lk.ijse.project_rio.dto.CartDTO;
 import lk.ijse.project_rio.dto.Inventory;
 import lk.ijse.project_rio.dto.tm.CartTM;
@@ -24,7 +28,6 @@ import lk.ijse.project_rio.model.OrderModel;
 import lk.ijse.project_rio.util.TimeAndDateController;
 
 public class OrderFormController {
-
 
     @FXML
     private ResourceBundle resources;
@@ -184,8 +187,18 @@ public class OrderFormController {
     }
 
     @FXML
-    void clickOnActionRadioBtn(ActionEvent event) {
-
+    void clickOnActionRadioBtn(ActionEvent event) throws IOException {
+        if(radioBtn.isSelected()){
+            Stage stage = new Stage();
+            stage.resizableProperty().setValue(false);
+            try {
+                stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/lk.ijse.project_rio.view/add_new_delivery_form.fxml"))));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            stage.centerOnScreen();
+            stage.show();
+        }
     }
 
     private void loadCustomerIds() {
@@ -275,7 +288,6 @@ public class OrderFormController {
             lblItemCategory.setText(item.getCategory());
             lblItemQtyOnHand.setText(String.valueOf(item.getQtyOnHand()));
         } catch (Exception e) {
-
         }
     }
 

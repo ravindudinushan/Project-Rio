@@ -2,6 +2,7 @@ package lk.ijse.project_rio.model;
 
 import lk.ijse.project_rio.db.DBConnection;
 import lk.ijse.project_rio.dto.CartDTO;
+import lk.ijse.project_rio.dto.NewDelivery;
 import lk.ijse.project_rio.util.CrudUtil;
 
 import java.sql.Connection;
@@ -12,6 +13,8 @@ import java.time.LocalTime;
 import java.util.List;
 
 public class OrderModel {
+
+    static NewDelivery gotnewdelivery;
 
     public static String getNextOrderId() throws SQLException {
         String sql = "SELECT orderId FROM orders ORDER BY orderId DESC LIMIT 1";
@@ -50,8 +53,16 @@ public class OrderModel {
                     boolean isOrdered = OrderDetailModel.save(oId, cartDTOList);
                     if(isOrdered) {
                         System.out.println("isOrdered");
-                        con.commit();
-                        return true;
+                        if (delivery) {
+                            boolean isDelivered = NewDeliveryModel.save(gotnewdelivery);
+                            if (isDelivered) {
+                                con.commit();
+                                return true;
+                            }
+                        } else {
+                            con.commit();
+                            return true;
+                        }
                     }
                 }
             }
@@ -77,5 +88,9 @@ public class OrderModel {
                 ordpay,
                 custId
         );
+    }
+
+    public static void sendObject(NewDelivery newDelivery) {
+        gotnewdelivery = newDelivery;
     }
 }
