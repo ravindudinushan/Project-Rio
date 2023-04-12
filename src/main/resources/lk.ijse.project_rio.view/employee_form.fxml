@@ -24,13 +24,13 @@
             <Font name="Times New Roman Bold Italic" size="36.0" />
          </font>
       </Label>
-      <TextField fx:id="txtempid" layoutX="45.0" layoutY="120.0" prefHeight="25.0" prefWidth="205.0" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
+      <TextField fx:id="txtempid" layoutX="45.0" layoutY="120.0" onMousePressed="#txtempidOnMousePressed" prefHeight="25.0" prefWidth="205.0" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
       <TextField fx:id="txtempname" layoutX="417.0" layoutY="120.0" prefHeight="25.0" prefWidth="205.0" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
-      <TextField fx:id="txtempnic" layoutX="785.0" layoutY="120.0" prefHeight="25.0" prefWidth="205.0" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
+      <TextField fx:id="txtempnic" layoutX="785.0" layoutY="120.0" onMousePressed="#txtempnicOnMousePressed" prefHeight="25.0" prefWidth="205.0" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
       <TextField fx:id="txtempaddress" layoutX="45.0" layoutY="248.0" prefHeight="25.0" prefWidth="205.0" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
       <TextField fx:id="txtempjob" layoutX="417.0" layoutY="183.0" prefHeight="25.0" prefWidth="205.0" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
-      <TextField fx:id="txtempcontact" layoutX="785.0" layoutY="183.0" prefHeight="25.0" prefWidth="205.0" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
-      <TextField fx:id="txtempemail" layoutX="417.0" layoutY="248.0" prefHeight="25.0" prefWidth="205.0" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
+      <TextField fx:id="txtempcontact" layoutX="785.0" layoutY="183.0" onMousePressed="#txtempcontactOnMousePressed" prefHeight="25.0" prefWidth="205.0" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
+      <TextField fx:id="txtempemail" layoutX="417.0" layoutY="248.0" onMousePressed="#txtempemailOnMousePressed" prefHeight="25.0" prefWidth="205.0" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
       <DatePicker fx:id="txtempdob" layoutX="45.0" layoutY="183.0" prefHeight="25.0" prefWidth="205.0" />
       <TableView fx:id="tblEmployee" layoutX="39.0" layoutY="352.0" opacity="0.77" prefHeight="267.0" prefWidth="964.0">
         <columns>
@@ -76,6 +76,26 @@
          </image>
       </ImageView>
       <TextField fx:id="txtempsalary" layoutX="785.0" layoutY="248.0" prefHeight="25.0" prefWidth="205.0" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
-      <Label layoutX="785.0" layoutY="229.0" text="Salary" />
+      <Label layoutX="783.0" layoutY="229.0" text="Salary:" />
+      <Label fx:id="lblinvalidemployeeid" layoutX="120.0" layoutY="101.0" prefHeight="17.0" prefWidth="154.0" text="Invalide Employee ID" textFill="#ed0740">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblinvalidnic" layoutX="870.0" layoutY="99.0" prefHeight="17.0" prefWidth="154.0" text="Invalide Employee NIC" textFill="#ed0740">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblinvalidemail" layoutX="459.0" layoutY="229.0" prefHeight="17.0" prefWidth="154.0" text="Invalide Employee Email" textFill="#ed0740">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblinvalidcontact" layoutX="836.0" layoutY="162.0" prefHeight="17.0" prefWidth="154.0" text="Invalide Employee Contact" textFill="#ed0740">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
