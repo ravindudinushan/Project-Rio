@@ -2,6 +2,7 @@ package lk.ijse.project_rio.controller;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -19,11 +20,14 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import jfxtras.scene.control.LocalTimeTextField;
+import lk.ijse.project_rio.dto.Customer;
 import lk.ijse.project_rio.dto.Event;
 import lk.ijse.project_rio.dto.tm.EventTM;
+import lk.ijse.project_rio.model.CustomerModel;
 import lk.ijse.project_rio.model.EmployeeModel;
 import lk.ijse.project_rio.model.EventModel;
 import lk.ijse.project_rio.util.AlertController;
+import lk.ijse.project_rio.util.ValidateField;
 
 public class EventFormController {
 
@@ -94,6 +98,9 @@ public class EventFormController {
     private AnchorPane adminChangingPane;
 
     @FXML
+    private Label lblinvalideventid;
+
+    @FXML
     void btnDeleteOnAction(ActionEvent event) {
         String id = txtEventId.getText();
 
@@ -127,22 +134,51 @@ public class EventFormController {
         String type = txtEventType.getText();
         String empId = comEmpId.getValue();
 
-        Event event = new Event(id,name,date,time,type,empId);
-        try {
-            boolean isSaved = EventModel.save(event);
-            if (isSaved) {
-                new Alert(Alert.AlertType.CONFIRMATION, "Event saved!").show();
-                txtEventId.setText("");
-                txtEventName.setText("");
-                txtEventDate.setValue(null);
-                txtEventTime.setLocalTime(null);
-                txtEventType.setText("");
-                comEmpId.setValue(null);
-                getAll();
+//        Event event = new Event(id,name,date,time,type,empId);
+//        try {
+//            boolean isSaved = EventModel.save(event);
+//            if (isSaved) {
+//                new Alert(Alert.AlertType.CONFIRMATION, "Event saved!").show();
+//                txtEventId.setText("");
+//                txtEventName.setText("");
+//                txtEventDate.setValue(null);
+//                txtEventTime.setLocalTime(null);
+//                txtEventType.setText("");
+//                comEmpId.setValue(null);
+//                getAll();
+//            }
+//        } catch (SQLException e) {
+//            System.out.println(e);
+//            new Alert(Alert.AlertType.ERROR, "something went wrong!").show();
+//        }
+        if(id.isEmpty() || name.isEmpty() || date.isEmpty() || time.isEmpty() || type.isEmpty() || empId.isEmpty()){
+            AlertController.errormessage("Event not saved successfully.\nPlease make sure to fill out all the required fields.");
+        }else{
+            if(ValidateField.eventIdCheck(id)) {
+                                        Event event = new Event(id,name,date,time,type,empId);
+
+                                        try {
+                                            boolean isUpdated = EventModel.update(event);
+                                            if (isUpdated) {
+                                                AlertController.confirmmessage("New Event added successfully");
+                                                txtEventId.setText(null);
+                                                txtEventName.setText(null);
+                                                txtEventDate.setValue(null);
+                                                txtEventTime.setLocalTime(null);
+                                                txtEventType.setText(null);
+                                                comEmpId.setValue(null);
+                                                getAll();
+                                            }
+                                        }catch(SQLIntegrityConstraintViolationException e){
+                                            AlertController.errormessage("This Event ID already exists.");
+                                        } catch (SQLException e) {
+                                            System.out.println(e);
+                                            new Alert(Alert.AlertType.ERROR, "something went wrong!").show();
+                                        }
+            }else{
+                lblinvalideventid.setVisible(true);
+                lblinvalideventid.setStyle("-fx-text-fill: red");
             }
-        } catch (SQLException e) {
-            System.out.println(e);
-            new Alert(Alert.AlertType.ERROR, "something went wrong!").show();
         }
     }
 
@@ -156,24 +192,34 @@ public class EventFormController {
         String empId = comEmpId.getValue();
 
         boolean result = AlertController.okconfirmmessage("Are you sure you want to update this event details?");
-        if(result==true) {
+        if (result == true) {
 
-            Event event = new Event(id, name, date, time, type,empId);
-            try {
-                boolean isUpdated = EventModel.update(event);
-                if (isUpdated) {
-                    AlertController.confirmmessage("Employee Details Updated");
-                    txtEventId.setText("");
-                    txtEventName.setText("");
-                    txtEventDate.setValue(null);
-                    txtEventTime.setLocalTime(null);
-                    txtEventType.setText("");
-                    comEmpId.setValue(null);
-                    getAll();
+            if (id.isEmpty() || name.isEmpty() || date.isEmpty() || time.isEmpty() || type.isEmpty() || empId.isEmpty()) {
+                AlertController.errormessage("Event not saved successfully.\nPlease make sure to fill out all the required fields.");
+            } else {
+                if (ValidateField.eventIdCheck(id)) {
+                    Event event = new Event(id, name, date, time, type, empId);
+
+                    try {
+                        boolean isUpdated = EventModel.update(event);
+                        if (isUpdated) {
+                            AlertController.confirmmessage("New Event added successfully");
+                            txtEventId.setText(null);
+                            txtEventName.setText(null);
+                            txtEventDate.setValue(null);
+                            txtEventTime.setLocalTime(null);
+                            txtEventType.setText(null);
+                            comEmpId.setValue(null);
+                            getAll();
+                        }
+                    } catch (SQLException e) {
+                        System.out.println(e);
+                        new Alert(Alert.AlertType.ERROR, "something went wrong!");
+                    }
+                } else {
+                    lblinvalideventid.setVisible(true);
+                    lblinvalideventid.setStyle("-fx-text-fill: red");
                 }
-            } catch (SQLException e) {
-                System.out.println(e);
-                AlertController.errormessage("something went wrong!");
             }
         }
     }
@@ -274,6 +320,7 @@ public class EventFormController {
         setCellValueFactory();
         getAll();
         loadEmployeeIds();
+        lblinvalideventid.setVisible(false);
         assert btnDelete != null : "fx:id=\"btnDelete\" was not injected: check your FXML file 'event_form.fxml'.";
         assert btnSave != null : "fx:id=\"btnSave\" was not injected: check your FXML file 'event_form.fxml'.";
         assert btnUpdate != null : "fx:id=\"btnUpdate\" was not injected: check your FXML file 'event_form.fxml'.";
@@ -295,4 +342,7 @@ public class EventFormController {
 
     }
 
+    public void txtEventIdOnMousePressed(MouseEvent mouseEvent) {
+       lblinvalideventid.setVisible(false);
+    }
 }

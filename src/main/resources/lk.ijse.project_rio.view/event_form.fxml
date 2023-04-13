@@ -26,7 +26,7 @@
             <Font name="Times New Roman Bold Italic" size="36.0" />
          </font>
       </Label>
-      <TextField fx:id="txtEventId" layoutX="417.0" layoutY="120.0" prefHeight="25.0" prefWidth="205.0" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
+      <TextField fx:id="txtEventId" layoutX="417.0" layoutY="120.0" onMousePressed="#txtEventIdOnMousePressed" prefHeight="25.0" prefWidth="205.0" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
       <TextField fx:id="txtEventName" layoutX="785.0" layoutY="120.0" prefHeight="25.0" prefWidth="205.0" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
       <TextField fx:id="txtEventType" layoutX="46.0" layoutY="248.0" prefHeight="25.0" prefWidth="205.0" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
       <DatePicker fx:id="txtEventDate" layoutX="417.0" layoutY="248.0" prefHeight="25.0" prefWidth="205.0" />
@@ -70,5 +70,10 @@
       </ImageView>
       <ComboBox fx:id="comEmpId" layoutX="46.0" layoutY="120.0" prefHeight="25.0" prefWidth="205.0" />
       <LocalTimeTextField fx:id="txtEventTime" layoutX="785.0" layoutY="248.0" prefHeight="25.0" prefWidth="205.0" />
+      <Label fx:id="lblinvalideventid" layoutX="471.0" layoutY="101.0" text="Invalid Event ID" textFill="#f80505">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

@@ -65,4 +65,11 @@ public class ValidateField {
         Matcher m = p.matcher(custId);
         return m.matches();
     }
+
+    public static boolean eventIdCheck(String custId) {
+        String pattern = "^EV\\d+$";
+        Pattern p = Pattern.compile(pattern);
+        Matcher m = p.matcher(custId);
+        return m.matches();
+    }
 }
