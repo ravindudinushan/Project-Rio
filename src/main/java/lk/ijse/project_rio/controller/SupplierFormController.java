@@ -2,6 +2,7 @@ package lk.ijse.project_rio.controller;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
 import javafx.collections.ObservableList;
@@ -13,11 +14,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.project_rio.dto.Customer;
 import lk.ijse.project_rio.dto.Supplier;
 import lk.ijse.project_rio.dto.tm.SupplierTM;
-import lk.ijse.project_rio.model.EmployeeModel;
+import lk.ijse.project_rio.model.CustomerModel;
 import lk.ijse.project_rio.model.SupplierModel;
 import lk.ijse.project_rio.util.AlertController;
+import lk.ijse.project_rio.util.ValidateField;
 
 public class SupplierFormController {
 
@@ -79,6 +82,15 @@ public class SupplierFormController {
     private AnchorPane adminChangingPane;
 
     @FXML
+    private Label lblinvalidcontact;
+
+    @FXML
+    private Label lblinvalidemail;
+
+    @FXML
+    private Label lblinvalidsupplierid;
+
+    @FXML
     void clickOnActionDelete(ActionEvent event) {
         String id = supId.getText();
 
@@ -111,22 +123,79 @@ public class SupplierFormController {
         String email = supEmail.getText();
         String contact = supContact.getText();
 
-        Supplier supplier = new Supplier(id, name, address, email, contact);
+//        Supplier supplier = new Supplier(id, name, address, email, contact);
+//
+//        try {
+//            boolean isSaved = SupplierModel.save(supplier);
+//            if (isSaved) {
+//                new Alert(Alert.AlertType.CONFIRMATION, "Item saved!").show();
+//                supId.setText("");
+//                supName.setText("");
+//                supAddress.setText("");
+//                supEmail.setText("");
+//                supContact.setText("");
+//                getAll();
+//            }
+//        } catch (SQLException e) {
+//            System.out.println(e);
+//            new Alert(Alert.AlertType.ERROR, "something went wrong!").show();
+//        }
+        if(id.isEmpty() || name.isEmpty() || contact.isEmpty() || address.isEmpty() || email.isEmpty()){
+            AlertController.errormessage("Supplier not saved successfully.\nPlease make sure to fill out all the required fields.");
+        }else{
+            if(ValidateField.supplierIdCheck(id)) {
+                if (ValidateField.emailCheck(email) || ValidateField.contactCheck(contact)) {
+                    if (ValidateField.emailCheck(email)) {
+                        if (ValidateField.contactCheck(contact)) {
+                            if (ValidateField.emailCheck(email) || ValidateField.contactCheck(contact)) {
+                                if (ValidateField.contactCheck(contact)) {
+                                    if (ValidateField.emailCheck(email)) {
 
-        try {
-            boolean isSaved = SupplierModel.save(supplier);
-            if (isSaved) {
-                new Alert(Alert.AlertType.CONFIRMATION, "Item saved!").show();
-                supId.setText("");
-                supName.setText("");
-                supAddress.setText("");
-                supEmail.setText("");
-                supContact.setText("");
-                getAll();
+
+                                        Supplier supplier = new Supplier(id,name,address,email,contact);
+
+                                        try {
+                                            boolean isSaved = SupplierModel.save(supplier);
+                                            if (isSaved) {
+                                                AlertController.confirmmessage("New Supplier added successfully");
+                                                supId.setText(null);
+                                                supName.setText(null);
+                                                supAddress.setText(null);
+                                                supEmail.setText(null);
+                                                supContact.setText(null);
+                                                getAll();
+                                            }
+                                        }catch(SQLIntegrityConstraintViolationException e){
+                                            AlertController.errormessage("This Supplier ID already exists.");
+                                        } catch (SQLException e) {
+                                            System.out.println(e);
+                                            new Alert(Alert.AlertType.ERROR, "something went wrong!").show();
+                                        }
+
+                                    } else {
+                                        lblinvalidemail.setVisible(true);
+                                    }
+                                } else {
+                                    lblinvalidcontact.setVisible(true);
+                                }
+                            } else {
+                                lblinvalidemail.setVisible(true);
+                                lblinvalidcontact.setVisible(true);
+                            }
+                        } else {
+                            lblinvalidcontact.setVisible(true);
+                        }
+                    } else {
+                        lblinvalidemail.setVisible(true);
+                    }
+                } else {
+                    lblinvalidemail.setVisible(true);
+                    lblinvalidcontact.setVisible(true);
+                }
+            }else{
+                lblinvalidsupplierid.setVisible(true);
+                lblinvalidsupplierid.setStyle("-fx-text-fill: red");
             }
-        } catch (SQLException e) {
-            System.out.println(e);
-            new Alert(Alert.AlertType.ERROR, "something went wrong!").show();
         }
     }
 
@@ -141,22 +210,59 @@ public class SupplierFormController {
         boolean result = AlertController.okconfirmmessage("Are you sure you want to update this Suppliers' details?");
         if(result==true) {
 
-            Supplier supplier = new Supplier(id, name, address, email, contact);
-            try {
-                boolean isUpdated = SupplierModel.update(supplier);
-                if (isUpdated) {
-                    AlertController.confirmmessage("Supplier Details Updated");
-                    supId.setText("");
-                    supName.setText("");
-                    supAddress.setText("");
-                    supEmail.setText("");
-                    supContact.setText("");
+            if (id.isEmpty() || name.isEmpty() || contact.isEmpty() || address.isEmpty() || email.isEmpty()) {
+                AlertController.errormessage("Supplier not saved successfully.\nPlease make sure to fill out all the required fields.");
+            } else {
+                if (ValidateField.supplierIdCheck(id)) {
+                    if (ValidateField.emailCheck(email) || ValidateField.contactCheck(contact)) {
+                        if (ValidateField.emailCheck(email)) {
+                            if (ValidateField.contactCheck(contact)) {
+                                if (ValidateField.emailCheck(email) || ValidateField.contactCheck(contact)) {
+                                    if (ValidateField.contactCheck(contact)) {
+                                        if (ValidateField.emailCheck(email)) {
 
-                    getAll();
+                                            Supplier supplier = new Supplier(id, name, address, email, contact);
+
+                                            try {
+                                                boolean isUpdated = SupplierModel.update(supplier);
+                                                if (isUpdated) {
+                                                    AlertController.confirmmessage("New Supplier added successfully");
+                                                    supId.setText(null);
+                                                    supName.setText(null);
+                                                    supAddress.setText(null);
+                                                    supEmail.setText(null);
+                                                    supContact.setText(null);
+                                                    getAll();
+                                                }
+                                            } catch (SQLException e) {
+                                                System.out.println(e);
+                                                new Alert(Alert.AlertType.ERROR, "something went wrong!");
+                                            }
+
+                                        } else {
+                                            lblinvalidemail.setVisible(true);
+                                        }
+                                    } else {
+                                        lblinvalidcontact.setVisible(true);
+                                    }
+                                } else {
+                                    lblinvalidemail.setVisible(true);
+                                    lblinvalidcontact.setVisible(true);
+                                }
+                            } else {
+                                lblinvalidcontact.setVisible(true);
+                            }
+                        } else {
+                            lblinvalidemail.setVisible(true);
+                        }
+                    } else {
+                        lblinvalidemail.setVisible(true);
+                        lblinvalidcontact.setVisible(true);
+                    }
+                } else {
+                    lblinvalidsupplierid.setVisible(true);
+                    lblinvalidsupplierid.setStyle("-fx-text-fill: red");
                 }
-            } catch (SQLException e) {
-                System.out.println(e);
-                AlertController.errormessage("something went wrong!");
             }
         }
     }
@@ -228,30 +334,13 @@ public class SupplierFormController {
         supColContact.setCellValueFactory(new PropertyValueFactory<>("contact"));
     }
 
-//    public static ObservableList<SupplierTM> getAll() throws SQLException {
-//        String sql = "SELECT * FROM Supplier";
-//        try (PreparedStatement pstm = DBConnection.getInstance().getConnection().prepareStatement(sql)) {
-//
-//            ObservableList<SupplierTM> obList = FXCollections.observableArrayList();
-//
-//            ResultSet resultSet = pstm.executeQuery(sql);
-//            while (resultSet.next()) {
-//                obList.add(new SupplierTM(
-//                        resultSet.getString(1),
-//                        resultSet.getString(2),
-//                        resultSet.getString(3),
-//                        resultSet.getString(4),
-//                        resultSet.getString(5)
-//                ));
-//            }
-//            return obList;
-//        }
-//    }
-
     @FXML
     void initialize() {
         setCellValueFactory();
         getAll();
+        lblinvalidemail.setVisible(false);
+        lblinvalidcontact.setVisible(false);
+        lblinvalidsupplierid.setVisible(false);
         assert deleteBtn != null : "fx:id=\"deleteBtn\" was not injected: check your FXML file 'supplier_form.fxml'.";
         assert saveBtn != null : "fx:id=\"saveBtn\" was not injected: check your FXML file 'supplier_form.fxml'.";
         assert searchIcon != null : "fx:id=\"searchIcon\" was not injected: check your FXML file 'supplier_form.fxml'.";
@@ -269,5 +358,17 @@ public class SupplierFormController {
         assert tblSupplier != null : "fx:id=\"tblSupplier\" was not injected: check your FXML file 'supplier_form.fxml'.";
         assert updateBtn != null : "fx:id=\"updateBtn\" was not injected: check your FXML file 'supplier_form.fxml'.";
 
+    }
+
+    public void supIdOnMousePressed(MouseEvent mouseEvent) {
+        lblinvalidsupplierid.setVisible(false);
+    }
+
+    public void supContactOnMousePressed(MouseEvent mouseEvent) {
+        lblinvalidcontact.setVisible(false);
+    }
+
+    public void supEmailOnMousePressed(MouseEvent mouseEvent) {
+        lblinvalidemail.setVisible(false);
     }
 }

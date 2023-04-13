@@ -2,6 +2,7 @@ package lk.ijse.project_rio.controller;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
 
@@ -18,6 +19,7 @@ import lk.ijse.project_rio.dto.Customer;
 import lk.ijse.project_rio.dto.tm.CustomerTM;
 import lk.ijse.project_rio.model.CustomerModel;
 import lk.ijse.project_rio.util.AlertController;
+import lk.ijse.project_rio.util.ValidateField;
 
 public class CustomerFormController {
 
@@ -82,6 +84,15 @@ public class CustomerFormController {
     private AnchorPane adminChangingPane;
 
     @FXML
+    private Label lblinvalidcontact;
+
+    @FXML
+    private Label lblinvalidcustomerid;
+
+    @FXML
+    private Label lblinvalidemail;
+
+    @FXML
     void clickOnActionDelete(ActionEvent event) {
         String id = custId.getText();
 
@@ -114,27 +125,85 @@ public class CustomerFormController {
         String email = custEmail.getText();
         String contact = custContact.getText();
 
-        Customer customer = new Customer(id, name, address, email, contact);
+//        Customer customer = new Customer(id, name, address, email, contact);
+//
+//        try {
+//            boolean isSaved = CustomerModel.save(customer);
+//            if (isSaved) {
+//                new Alert(Alert.AlertType.CONFIRMATION, "Item saved!").show();
+//                custId.setText("");
+//                custName.setText("");
+//                custAddress.setText("");
+//                custEmail.setText("");
+//                custContact.setText("");
+//                getAll();
+//            }
+//        } catch (SQLException e) {
+//            System.out.println(e);
+//            new Alert(Alert.AlertType.ERROR, "something went wrong!").show();
+//        }
+        if(id.isEmpty() || name.isEmpty() || contact.isEmpty() || address.isEmpty()){
+            AlertController.errormessage("Customer not saved successfully.\nPlease make sure to fill out all the required fields.");
+        }else{
+            if(ValidateField.customerIdCheck(id)) {
+                if (ValidateField.emailCheck(email) || ValidateField.contactCheck(contact)) {
+                    if (ValidateField.emailCheck(email)) {
+                        if (ValidateField.contactCheck(contact)) {
+                            if (ValidateField.emailCheck(email) || ValidateField.contactCheck(contact)) {
+                                if (ValidateField.contactCheck(contact)) {
+                                    if (ValidateField.emailCheck(email)) {
 
-        try {
-            boolean isSaved = CustomerModel.save(customer);
-            if (isSaved) {
-                new Alert(Alert.AlertType.CONFIRMATION, "Item saved!").show();
-                custId.setText("");
-                custName.setText("");
-                custAddress.setText("");
-                custEmail.setText("");
-                custContact.setText("");
-                getAll();
+
+                                            Customer customer = new Customer(id,name,address,email,contact);
+
+                                            try {
+                                                boolean isSaved = CustomerModel.save(customer);
+                                                if (isSaved) {
+                                                    AlertController.confirmmessage("New customer added successfully");
+                                                    custId.setText(null);
+                                                    custName.setText(null);
+                                                    custAddress.setText(null);
+                                                    custEmail.setText(null);
+                                                    custContact.setText(null);
+                                                    getAll();
+                                                }
+                                            }catch(SQLIntegrityConstraintViolationException e){
+                                                AlertController.errormessage("This Customer ID already exists.");
+                                            } catch (SQLException e) {
+                                                System.out.println(e);
+                                                new Alert(Alert.AlertType.ERROR, "something went wrong!").show();
+                                            }
+
+                                    } else {
+                                        lblinvalidemail.setVisible(true);
+                                    }
+                                } else {
+                                    lblinvalidcontact.setVisible(true);
+                                }
+                            } else {
+                                lblinvalidemail.setVisible(true);
+                                lblinvalidcontact.setVisible(true);
+                            }
+                        } else {
+                            lblinvalidcontact.setVisible(true);
+                        }
+                    } else {
+                        lblinvalidemail.setVisible(true);
+                    }
+                } else {
+                    lblinvalidemail.setVisible(true);
+                    lblinvalidcontact.setVisible(true);
+                }
+            }else{
+                lblinvalidcustomerid.setVisible(true);
+                lblinvalidcustomerid.setStyle("-fx-text-fill: red");
             }
-        } catch (SQLException e) {
-            System.out.println(e);
-            new Alert(Alert.AlertType.ERROR, "something went wrong!").show();
         }
+
     }
 
     @FXML
-    void clickOnActionUpdate(ActionEvent event) {
+    void clickOnActionUpdate(ActionEvent event) throws SQLException {
         String id = custId.getText();
         String name = custName.getText();
         String address = custAddress.getText();
@@ -144,22 +213,58 @@ public class CustomerFormController {
         boolean result = AlertController.okconfirmmessage("Are you sure you want to update this Customer' details?");
         if(result==true) {
 
-            Customer customer = new Customer(id, name, address, email, contact);
-            try {
-                boolean isUpdated = CustomerModel.update(customer);
-                if (isUpdated) {
-                    AlertController.confirmmessage("Customer Details Updated");
-                    custId.setText("");
-                    custName.setText("");
-                    custAddress.setText("");
-                    custEmail.setText("");
-                    custContact.setText("");
+            if(id.isEmpty() || name.isEmpty() || contact.isEmpty() || address.isEmpty()){
+                AlertController.errormessage("Customer not saved successfully.\nPlease make sure to fill out all the required fields.");
+            }else {
+                if (ValidateField.customerIdCheck(id)) {
+                    if (ValidateField.emailCheck(email) || ValidateField.contactCheck(contact)) {
+                        if (ValidateField.emailCheck(email)) {
+                            if (ValidateField.contactCheck(contact)) {
+                                if (ValidateField.emailCheck(email) || ValidateField.contactCheck(contact)) {
+                                    if (ValidateField.contactCheck(contact)) {
+                                        if (ValidateField.emailCheck(email)) {
 
-                    getAll();
+                                            Customer customer = new Customer(id, name, address, email, contact);
+                                            try {
+                                                boolean isUpdated = CustomerModel.update(customer);
+                                                if (isUpdated) {
+                                                    AlertController.confirmmessage("Customer Details Updated");
+                                                    custId.setText("");
+                                                    custName.setText("");
+                                                    custAddress.setText("");
+                                                    custEmail.setText("");
+                                                    custContact.setText("");
+
+                                                    getAll();
+                                                }
+                                            } catch (SQLException e) {
+                                                System.out.println(e);
+                                                AlertController.errormessage("something went wrong!");
+                                            }
+                                        } else {
+                                            lblinvalidemail.setVisible(true);
+                                        }
+                                    } else {
+                                        lblinvalidcontact.setVisible(true);
+                                    }
+                                } else {
+                                    lblinvalidemail.setVisible(true);
+                                    lblinvalidcontact.setVisible(true);
+                                }
+                            } else {
+                                lblinvalidcontact.setVisible(true);
+                            }
+                        } else {
+                            lblinvalidemail.setVisible(true);
+                        }
+                    } else {
+                        lblinvalidemail.setVisible(true);
+                        lblinvalidcontact.setVisible(true);
+                    }
+                } else {
+                    lblinvalidcustomerid.setVisible(true);
+                    lblinvalidcustomerid.setStyle("-fx-text-fill: red");
                 }
-            } catch (SQLException e) {
-                System.out.println(e);
-                AlertController.errormessage("something went wrong!");
             }
         }
     }
@@ -243,6 +348,9 @@ public class CustomerFormController {
         custContact.setText(null);
         setCellValueFactory();
         getAll();
+        lblinvalidemail.setVisible(false);
+        lblinvalidcontact.setVisible(false);
+        lblinvalidcustomerid.setVisible(false);
         assert custAddress != null : "fx:id=\"custAddress\" was not injected: check your FXML file 'customer_form.fxml'.";
         assert custColAddress != null : "fx:id=\"custColAddress\" was not injected: check your FXML file 'customer_form.fxml'.";
         assert custColContact != null : "fx:id=\"custColContact\" was not injected: check your FXML file 'customer_form.fxml'.";
@@ -262,4 +370,15 @@ public class CustomerFormController {
 
     }
 
+    public void custIdOnMousePressed(MouseEvent mouseEvent) {
+        lblinvalidcustomerid.setVisible(false);
+    }
+
+    public void custContactOnMousePressed(KeyEvent keyEvent) {
+        lblinvalidcontact.setVisible(false);
+    }
+
+    public void custEmailOnMousePressed(KeyEvent keyEvent) {
+        lblinvalidemail.setVisible(false);
+    }
 }

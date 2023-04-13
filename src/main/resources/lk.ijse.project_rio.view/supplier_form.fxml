@@ -23,11 +23,11 @@
             <Font name="Times New Roman Bold Italic" size="36.0" />
          </font>
       </Label>
-      <TextField fx:id="supId" layoutX="45.0" layoutY="120.0" prefHeight="25.0" prefWidth="205.0" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
+      <TextField fx:id="supId" layoutX="45.0" layoutY="120.0" onMousePressed="#supIdOnMousePressed" prefHeight="25.0" prefWidth="205.0" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
       <TextField fx:id="supName" layoutX="417.0" layoutY="120.0" prefHeight="25.0" prefWidth="205.0" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
       <TextField fx:id="supAddress" layoutX="785.0" layoutY="120.0" prefHeight="25.0" prefWidth="205.0" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
-      <TextField fx:id="supContact" layoutX="418.0" layoutY="246.0" prefHeight="25.0" prefWidth="205.0" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
-      <TextField fx:id="supEmail" layoutX="45.0" layoutY="246.0" prefHeight="25.0" prefWidth="205.0" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
+      <TextField fx:id="supContact" layoutX="418.0" layoutY="246.0" onMousePressed="#supContactOnMousePressed" prefHeight="25.0" prefWidth="205.0" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
+      <TextField fx:id="supEmail" layoutX="45.0" layoutY="246.0" onMousePressed="#supEmailOnMousePressed" prefHeight="25.0" prefWidth="205.0" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
       <TableView fx:id="tblSupplier" layoutX="193.0" layoutY="342.0" opacity="0.77" prefHeight="267.0" prefWidth="627.0">
          <columns>
             <TableColumn fx:id="supColId" prefWidth="68.6666259765625" text="ID" />
@@ -63,5 +63,20 @@
             <Image url="@../lk.ijse.project_rio.assets/search.png" />
          </image>
       </ImageView>
+      <Label fx:id="lblinvalidsupplierid" layoutX="114.0" layoutY="101.0" text="Invalid Supplier ID" textFill="#f80404">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblinvalidemail" layoutX="87.0" layoutY="225.0" text="Invalid Email" textFill="#f80404">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblinvalidcontact" layoutX="468.0" layoutY="225.0" text="Invalid Contact" textFill="#f80404">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

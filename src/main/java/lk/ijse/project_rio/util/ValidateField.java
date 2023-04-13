@@ -51,4 +51,18 @@ public class ValidateField {
         ValidationResult result = validator.apply(null, nic);
         return result.getErrors().isEmpty();
     }
+
+    public static boolean customerIdCheck(String custId) {
+        String pattern = "^C\\d+$";
+        Pattern p = Pattern.compile(pattern);
+        Matcher m = p.matcher(custId);
+        return m.matches();
+    }
+
+    public static boolean supplierIdCheck(String custId) {
+        String pattern = "^S\\d+$";
+        Pattern p = Pattern.compile(pattern);
+        Matcher m = p.matcher(custId);
+        return m.matches();
+    }
 }

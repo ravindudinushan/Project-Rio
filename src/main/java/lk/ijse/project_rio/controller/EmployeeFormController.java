@@ -262,12 +262,6 @@ public class EmployeeFormController {
 
         boolean result = AlertController.okconfirmmessage("Are you sure you want to update this employees' details?");
         if(result==true) {
-
-//
-//            } catch (SQLException e) {
-//                System.out.println(e);
-//                AlertController.errormessage("something went wrong!");
-//            }
             if(id.isEmpty() || name.isEmpty() || nic.isEmpty() || dob.isEmpty() || job.isEmpty() || contact.isEmpty() || address.isEmpty()){
                 AlertController.errormessage("Employee not saved successfully.\nPlease make sure to fill out all the required fields.");
             }else{
@@ -279,24 +273,6 @@ public class EmployeeFormController {
                                     if (ValidateField.contactCheck(contact)) {
                                         if (ValidateField.emailCheck(email)) {
                                             if (ValidateField.nicCheck(nic)) {
-
-
-//                                                Employee employee = new Employee(id,name,nic,dob,address,email,job,contact,salary);
-//
-//                                                try {
-//                                                    boolean isSaved = EmployeeModel.save(employee);
-//                                                    if (isSaved) {
-//                                                        AlertController.confirmmessage("New employee added successfully");
-//                                                        txtempid.setText(null);
-//                                                        txtempname.setText(null);
-//                                                        txtempdob.setValue(null);
-//                                                        txtempaddress.setText(null);
-//                                                        txtempcontact.setText(null);
-//                                                        txtempemail.setText(null);
-//                                                        txtempjob.setText(null);
-//                                                        txtempnic.setText(null);
-//                                                        getAll();
-//                                                    }
                                                 Employee employee = new Employee(id, name, nic, dob, address, email,job, contact, salary);
                                                   try {
                                                        boolean isUpdated = EmployeeModel.update(employee);
