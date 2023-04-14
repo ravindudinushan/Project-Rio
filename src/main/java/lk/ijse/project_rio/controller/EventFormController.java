@@ -20,10 +20,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import jfxtras.scene.control.LocalTimeTextField;
-import lk.ijse.project_rio.dto.Customer;
 import lk.ijse.project_rio.dto.Event;
 import lk.ijse.project_rio.dto.tm.EventTM;
-import lk.ijse.project_rio.model.CustomerModel;
 import lk.ijse.project_rio.model.EmployeeModel;
 import lk.ijse.project_rio.model.EventModel;
 import lk.ijse.project_rio.util.AlertController;
@@ -158,8 +156,8 @@ public class EventFormController {
                                         Event event = new Event(id,name,date,time,type,empId);
 
                                         try {
-                                            boolean isUpdated = EventModel.update(event);
-                                            if (isUpdated) {
+                                            boolean isSaved = EventModel.save(event);
+                                            if (isSaved) {
                                                 AlertController.confirmmessage("New Event added successfully");
                                                 txtEventId.setText(null);
                                                 txtEventName.setText(null);

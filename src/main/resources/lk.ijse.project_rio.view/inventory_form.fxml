@@ -23,7 +23,7 @@
             <Font name="Times New Roman Bold Italic" size="36.0" />
          </font>
       </Label>
-      <TextField fx:id="itemId" layoutX="45.0" layoutY="120.0" prefHeight="25.0" prefWidth="205.0" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
+      <TextField fx:id="itemId" layoutX="45.0" layoutY="120.0" onKeyPressed="#itemIdOnMousePressed" prefHeight="25.0" prefWidth="205.0" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
       <TextField fx:id="itemName" layoutX="417.0" layoutY="120.0" prefHeight="25.0" prefWidth="205.0" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
       <TextField fx:id="itemCategory" layoutX="785.0" layoutY="120.0" prefHeight="25.0" prefWidth="205.0" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
       <TextField fx:id="itemQtyOnHand" layoutX="418.0" layoutY="246.0" prefHeight="25.0" prefWidth="205.0" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
@@ -63,5 +63,10 @@
             <Image url="@../lk.ijse.project_rio.assets/search.png" />
          </image>
       </ImageView>
+      <Label fx:id="lblinvaliditemid" layoutX="95.0" layoutY="101.0" prefHeight="17.0" prefWidth="141.0" text="Invalid Item ID" textFill="#fd0404">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

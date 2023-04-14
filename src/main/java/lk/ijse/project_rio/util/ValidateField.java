@@ -72,4 +72,11 @@ public class ValidateField {
         Matcher m = p.matcher(custId);
         return m.matches();
     }
+
+    public static boolean itemIdCheck(String custId) {
+        String pattern = "^I\\d+$";
+        Pattern p = Pattern.compile(pattern);
+        Matcher m = p.matcher(custId);
+        return m.matches();
+    }
 }

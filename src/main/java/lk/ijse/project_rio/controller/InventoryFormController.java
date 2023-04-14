@@ -2,6 +2,7 @@ package lk.ijse.project_rio.controller;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
 
@@ -14,10 +15,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.project_rio.dto.Event;
 import lk.ijse.project_rio.dto.Inventory;
 import lk.ijse.project_rio.dto.tm.InventoryTM;
+import lk.ijse.project_rio.model.EventModel;
 import lk.ijse.project_rio.model.InventoryModel;
 import lk.ijse.project_rio.util.AlertController;
+import lk.ijse.project_rio.util.ValidateField;
 
 public class InventoryFormController {
     @FXML
@@ -78,6 +82,9 @@ public class InventoryFormController {
     private AnchorPane adminChangingPane;
 
     @FXML
+    private Label lblinvaliditemid;
+
+    @FXML
     void clickOnActionDelete(ActionEvent event) {
         String id = itemId.getText();
 
@@ -110,22 +117,50 @@ public class InventoryFormController {
         Double unitPrice = Double.valueOf(itemUnitPrice.getText());
         String qtyOnHand = itemQtyOnHand.getText();
 
-        Inventory inventory = new Inventory(id, name, category, unitPrice, qtyOnHand);
+//        Inventory inventory = new Inventory(id, name, category, unitPrice, qtyOnHand);
+//
+//        try {
+//            boolean isSaved = InventoryModel.save(inventory);
+//            if (isSaved) {
+//                new Alert(Alert.AlertType.CONFIRMATION, "Item saved!").show();
+//                itemId.setText(null);
+//                itemName.setText(null);
+//                itemCategory.setText(null);
+//                itemUnitPrice.setText(null);
+//                itemQtyOnHand.setText(null);
+//                getAll();
+//            }
+//        } catch (SQLException e) {
+//            System.out.println(e);
+//            new Alert(Alert.AlertType.ERROR, "something went wrong!").show();
+//        }
+        if(id.isEmpty() || name.isEmpty() || unitPrice.isNaN() || qtyOnHand.isEmpty()){
+            AlertController.errormessage("Item not saved successfully.\nPlease make sure to fill out all the required fields.");
+        }else{
+            if(ValidateField.itemIdCheck(id)) {
+                Inventory inventory = new Inventory(id,name,category,unitPrice,qtyOnHand);
 
-        try {
-            boolean isSaved = InventoryModel.save(inventory);
-            if (isSaved) {
-                new Alert(Alert.AlertType.CONFIRMATION, "Item saved!").show();
-                itemId.setText(null);
-                itemName.setText(null);
-                itemCategory.setText(null);
-                itemUnitPrice.setText(null);
-                itemQtyOnHand.setText(null);
-                getAll();
+                try {
+                    boolean isSaved = InventoryModel.save(inventory);
+                    if (isSaved) {
+                        AlertController.confirmmessage("New Item added successfully");
+                        itemId.setText(null);
+                        itemName.setText(null);
+                        itemCategory.setText(null);
+                        itemUnitPrice.setText(null);
+                        itemQtyOnHand.setText(null);
+                        getAll();
+                    }
+                }catch(SQLIntegrityConstraintViolationException e){
+                    AlertController.errormessage("This Item ID already exists.");
+                } catch (SQLException e) {
+                    System.out.println(e);
+                    new Alert(Alert.AlertType.ERROR, "something went wrong!").show();
+                }
+            }else{
+                lblinvaliditemid.setVisible(true);
+                lblinvaliditemid.setStyle("-fx-text-fill: red");
             }
-        } catch (SQLException e) {
-            System.out.println(e);
-            new Alert(Alert.AlertType.ERROR, "something went wrong!").show();
         }
     }
 
@@ -140,22 +175,31 @@ public class InventoryFormController {
         boolean result = AlertController.okconfirmmessage("Are you sure you want to update this Inventory' details?");
         if(result==true) {
 
-            Inventory inventory = new Inventory(id, name, category, unitPrice, qtyOnHand);
-            try {
-                boolean isUpdated = InventoryModel.update(inventory);
-                if (isUpdated) {
-                    AlertController.confirmmessage("Supplier Details Updated");
-                    itemId.setText("");
-                    itemName.setText("");
-                    itemCategory.setText("");
-                    itemUnitPrice.setText("");
-                    itemQtyOnHand.setText("");
+            if(id.isEmpty() || name.isEmpty() || unitPrice.isNaN() || qtyOnHand.isEmpty()){
+                AlertController.errormessage("Item not updated successfully.\nPlease make sure to fill out all the required fields.");
+            }else{
+                if(ValidateField.itemIdCheck(id)) {
+                    Inventory inventory = new Inventory(id,name,category,unitPrice,qtyOnHand);
 
-                    getAll();
+                    try {
+                        boolean isUpdated = InventoryModel.update(inventory);
+                        if (isUpdated) {
+                            AlertController.confirmmessage("New Item added successfully");
+                            itemId.setText(null);
+                            itemName.setText(null);
+                            itemCategory.setText(null);
+                            itemUnitPrice.setText(null);
+                            itemQtyOnHand.setText(null);
+                            getAll();
+                        }
+                    } catch (SQLException e) {
+                        System.out.println(e);
+                        new Alert(Alert.AlertType.ERROR, "something went wrong!");
+                    }
+                }else{
+                    lblinvaliditemid.setVisible(true);
+                    lblinvaliditemid.setStyle("-fx-text-fill: red");
                 }
-            } catch (SQLException e) {
-                System.out.println(e);
-                AlertController.errormessage("something went wrong!");
             }
         }
     }
@@ -236,6 +280,7 @@ public class InventoryFormController {
         itemCategory.setText(null);
         itemUnitPrice.setText(null);
         itemQtyOnHand.setText(null);
+        lblinvaliditemid.setVisible(false);
         setCellValueFactory();
         getAll();
         assert itemId != null : "fx:id=\"ItemId\" was not injected: check your FXML file 'inventory_form.fxml'.";
@@ -258,4 +303,7 @@ public class InventoryFormController {
 
     }
 
+    public void itemIdOnMousePressed(KeyEvent keyEvent) {
+        lblinvaliditemid.setVisible(false);
+    }
 }
