@@ -58,11 +58,6 @@ public class SignupPageFormController {
     private Parent root;
 
     @FXML
-    void clickOnActionLogin(ActionEvent event) {
-
-    }
-
-    @FXML
     void initialize() {
         assert createAnAccBtn != null : "fx:id=\"createAnAccBtn\" was not injected: check your FXML file 'signup_page_form.fxml'.";
         assert loginLbl != null : "fx:id=\"loginLbl\" was not injected: check your FXML file 'signup_page_form.fxml'.";

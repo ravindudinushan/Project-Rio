@@ -93,7 +93,7 @@
          </font>
       </Label>
       <RadioButton fx:id="radioBtn" layoutX="99.0" layoutY="292.0" mnemonicParsing="false" onAction="#clickOnActionRadioBtn" text="Yes" />
-      <Label layoutX="157.0" layoutY="617.0" text="Net Totle:">
+      <Label layoutX="157.0" layoutY="617.0" text="Net Total:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -141,5 +141,21 @@
          <font>
             <Font name="System Bold Italic" size="14.0" />
          </font></Label>
+      <TextField fx:id="txtpaidamount" layoutX="464.0" layoutY="613.0" onKeyTyped="#txtpaidamountKeyTyped" prefHeight="25.0" prefWidth="95.0" />
+      <Label layoutX="379.0" layoutY="618.0" text="Paid Amount:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="608.0" layoutY="617.0" text="Balance:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="balancelbl" layoutX="659.0" layoutY="617.0" prefHeight="17.0" prefWidth="95.0">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

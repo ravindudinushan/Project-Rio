@@ -59,7 +59,7 @@ public class LoginPageController {
     }
 
     @FXML
-    void clickOnActionLogin(ActionEvent actionEvent) throws IOException, SQLException {
+    void clickOnActionLogin(ActionEvent actionEvent) throws IOException {
         String username = loginTxt1.getText();
         String password = loginTxt2.getText();
         String combo = String.valueOf(loginComboBox.getValue());

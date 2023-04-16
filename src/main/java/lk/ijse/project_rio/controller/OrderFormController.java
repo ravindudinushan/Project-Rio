@@ -1,12 +1,10 @@
 package lk.ijse.project_rio.controller;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,15 +15,23 @@ import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import lk.ijse.project_rio.db.DBConnection;
 import lk.ijse.project_rio.dto.CartDTO;
 import lk.ijse.project_rio.dto.Inventory;
 import lk.ijse.project_rio.dto.tm.CartTM;
 import lk.ijse.project_rio.model.CustomerModel;
 import lk.ijse.project_rio.model.InventoryModel;
 import lk.ijse.project_rio.model.OrderModel;
+import lk.ijse.project_rio.util.AlertController;
 import lk.ijse.project_rio.util.TimeAndDateController;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class OrderFormController {
 
@@ -113,6 +119,16 @@ public class OrderFormController {
     @FXML
     private AnchorPane adminChangingPane;
 
+    @FXML
+    private Button OrderReportBtn;
+
+    @FXML
+    private Label balancelbl;
+
+    @FXML
+    private TextField txtpaidamount;
+
+
 
     private ObservableList<CartTM> obList = FXCollections.observableArrayList();
 
@@ -176,7 +192,24 @@ public class OrderFormController {
         try {
             isPlaced = OrderModel.placeOrder(oId, cusId, delivery, totle, cartDTOList);
             if(isPlaced) {
-                new Alert(Alert.AlertType.CONFIRMATION, "Order Placed").show();
+                AlertController.confirmmessage("Order Placed");
+                boolean result = AlertController.okconfirmmessage("Do you want the bill ?");
+
+                if (result) { String printcash = txtpaidamount.getText();
+                    String balance = balancelbl.getText();
+
+                    Map<String, Object> parameters = new HashMap<>();
+                    parameters.put("param1", printcash);
+                    parameters.put("param2", balance);
+
+                    InputStream resource = this.getClass().getResourceAsStream("/lk.ijse.project_rio.reports/orderPlacement_A4.jrxml");
+                    try {
+                        JasperReport jasperReport = JasperCompileManager.compileReport(resource);
+                        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, DBConnection.getInstance().getConnection());
+                        JasperViewer.viewReport(jasperPrint, false);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }}
             } else {
                 new Alert(Alert.AlertType.ERROR, "Order Not Placed").show();
             }
@@ -343,5 +376,16 @@ public class OrderFormController {
         assert txtQty != null : "fx:id=\"txtQty\" was not injected: check your FXML file 'order_form.fxml'.";
         assert unitPriceCol != null : "fx:id=\"unitPriceCol\" was not injected: check your FXML file 'order_form.fxml'.";
 
+    }
+
+    public void orderReportOnAction(ActionEvent actionEvent) {
+
+    }
+
+    public void txtpaidamountKeyTyped(KeyEvent keyEvent) {
+        if(!txtpaidamount.getText().isEmpty()){
+            double balance = Double.parseDouble(txtpaidamount.getText())-Double.parseDouble(lblNetTotle.getText());
+                balancelbl.setText(String.valueOf(balance));
+        }
     }
 }

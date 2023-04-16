@@ -50,7 +50,7 @@
       <TextField fx:id="signTxt1" layoutX="467.0" layoutY="134.0" opacity="0.7" prefHeight="25.0" prefWidth="179.0" promptText="UserName" styleClass="loginTxt1" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
       <TextField fx:id="signTxt4" layoutX="467.0" layoutY="233.0" opacity="0.7" prefHeight="25.0" prefWidth="179.0" promptText="Email" styleClass="loginTxt2" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
       <TextField fx:id="signTxt5" layoutX="467.0" layoutY="266.0" opacity="0.7" prefHeight="25.0" prefWidth="179.0" promptText="Job Title" styleClass="loginTxt2" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
-      <PasswordField fx:id="signTxt2" layoutX="466.0" layoutY="166.0" prefHeight="25.0" prefWidth="182.0" promptText="Password" />
-      <PasswordField fx:id="signTxt3" layoutX="466.0" layoutY="200.0" prefHeight="25.0" prefWidth="182.0" promptText="Password" />
+      <PasswordField fx:id="signTxt2" layoutX="466.0" layoutY="166.0" opacity="0.7" prefHeight="25.0" prefWidth="182.0" promptText="Enter New Password" />
+      <PasswordField fx:id="signTxt3" layoutX="466.0" layoutY="200.0" opacity="0.7" prefHeight="25.0" prefWidth="182.0" promptText="Comfirm Password" />
    </children>
 </AnchorPane>
