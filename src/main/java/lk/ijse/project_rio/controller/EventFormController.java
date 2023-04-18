@@ -132,23 +132,6 @@ public class EventFormController {
         String type = txtEventType.getText();
         String empId = comEmpId.getValue();
 
-//        Event event = new Event(id,name,date,time,type,empId);
-//        try {
-//            boolean isSaved = EventModel.save(event);
-//            if (isSaved) {
-//                new Alert(Alert.AlertType.CONFIRMATION, "Event saved!").show();
-//                txtEventId.setText("");
-//                txtEventName.setText("");
-//                txtEventDate.setValue(null);
-//                txtEventTime.setLocalTime(null);
-//                txtEventType.setText("");
-//                comEmpId.setValue(null);
-//                getAll();
-//            }
-//        } catch (SQLException e) {
-//            System.out.println(e);
-//            new Alert(Alert.AlertType.ERROR, "something went wrong!").show();
-//        }
         if(id.isEmpty() || name.isEmpty() || date.isEmpty() || time.isEmpty() || type.isEmpty() || empId.isEmpty()){
             AlertController.errormessage("Event not saved successfully.\nPlease make sure to fill out all the required fields.");
         }else{

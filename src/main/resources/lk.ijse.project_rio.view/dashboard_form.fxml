@@ -79,7 +79,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Button>
-            <Button fx:id="reportsbtn" layoutX="64.0" layoutY="526.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="128.0" style="-fx-background-color: brown;" styleClass="dashbuttons" stylesheets="@../lk.ijse.project_rio.styles/style.css" text="Reports">
+            <Button fx:id="reportsbtn" layoutX="64.0" layoutY="526.0" mnemonicParsing="false" onAction="#onActionreportsbtn" prefHeight="39.0" prefWidth="128.0" style="-fx-background-color: brown;" styleClass="dashbuttons" stylesheets="@../lk.ijse.project_rio.styles/style.css" text="Reports">
                <effect>
                   <DropShadow />
                </effect>

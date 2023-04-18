@@ -25,18 +25,18 @@
             <Font name="Times New Roman Bold Italic" size="36.0" />
          </font>
       </Label>
-      <TextField fx:id="txtempjob" layoutX="417.0" layoutY="183.0" prefHeight="25.0" prefWidth="205.0" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
-      <TextField fx:id="txtempemail" layoutX="417.0" layoutY="248.0" prefHeight="25.0" prefWidth="205.0" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
-      <DatePicker fx:id="txtempdob" layoutX="45.0" layoutY="247.0" prefHeight="25.0" prefWidth="205.0" />
-      <TableView fx:id="tblEmployee" layoutX="176.0" layoutY="353.0" opacity="0.77" prefHeight="267.0" prefWidth="689.0">
+      <TextField fx:id="txtLocation" layoutX="417.0" layoutY="183.0" prefHeight="25.0" prefWidth="205.0" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
+      <TextField fx:id="txtDueDate" layoutX="417.0" layoutY="248.0" prefHeight="25.0" prefWidth="205.0" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
+      <DatePicker fx:id="txtDate" layoutX="45.0" layoutY="247.0" prefHeight="25.0" prefWidth="205.0" />
+      <TableView fx:id="tblDelivery" layoutX="176.0" layoutY="353.0" opacity="0.77" prefHeight="267.0" prefWidth="689.0">
          <columns>
-            <TableColumn fx:id="empcolid" prefWidth="68.6666259765625" text="Order ID" />
-            <TableColumn fx:id="empcolname" prefWidth="110.66668701171875" text="Delivery ID" />
-            <TableColumn fx:id="empcolnic" prefWidth="111.99996948242188" text="Date" />
+            <TableColumn fx:id="colOrderId" prefWidth="68.6666259765625" text="Order ID" />
+            <TableColumn fx:id="colDeliveryId" prefWidth="110.66668701171875" text="Delivery ID" />
+            <TableColumn fx:id="colDate" prefWidth="111.99996948242188" text="Date" />
             <TableColumn minWidth="0.0" prefWidth="1.33331298828125" text="C2" />
-            <TableColumn fx:id="empcoldob" prefWidth="121.33331298828125" text="Delivery Status" />
-            <TableColumn fx:id="empcoladdress" prefWidth="127.33334350585938" text="Location" />
-            <TableColumn fx:id="empcolemail" prefWidth="145.33331298828125" text="Employee ID" />
+            <TableColumn fx:id="colDeliveryStatus" prefWidth="121.33331298828125" text="Delivery Status" />
+            <TableColumn fx:id="colLocation" prefWidth="127.33334350585938" text="Location" />
+            <TableColumn fx:id="colEmpId" prefWidth="145.33331298828125" text="Employee ID" />
          </columns>
       </TableView>
       <Label layoutX="425.0" layoutY="98.0" text="Employee ID:" />
@@ -58,11 +58,28 @@
       </Button>
       <TextField fx:id="txtSearchOrderId" layoutX="779.0" layoutY="107.0" onAction="#txtSearchOrderIdOnAction" onKeyTyped="#txtSearchKeyTypedOrderId" opacity="0.83" prefHeight="25.0" prefWidth="205.0" promptText="Search by Order ID" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
       <Label layoutX="860.0" layoutY="239.0" text="Search By Delivery ID:" />
-      <ComboBox layoutX="425.0" layoutY="119.0" prefHeight="25.0" prefWidth="189.0" />
+      <ComboBox fx:id="comEmpId" layoutX="425.0" layoutY="119.0" prefHeight="25.0" prefWidth="189.0" />
       <Label layoutX="894.0" layoutY="83.0" text="Search Order ID:" />
       <TextField fx:id="txtSearchStatus" layoutX="779.0" layoutY="158.0" onAction="#txtSearchStatusOnAction" onKeyTyped="#txtSearchKeyTypedStatus" opacity="0.83" prefHeight="25.0" prefWidth="205.0" promptText="Search By Delivery Status" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
       <TextField fx:id="txtSearchDueDate" layoutX="779.0" layoutY="208.0" onAction="#txtSearchDueDateOnAction" onKeyTyped="#txtSearchKeyTypedDueDate" opacity="0.83" prefHeight="25.0" prefWidth="205.0" promptText="Search By Due Date" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
-      <TextField fx:id="txtSearchDeliveryId" layoutX="772.0" layoutY="260.0" onAction="#txtSearchDeliveryIdOnAction" onKeyTyped="#txtSearchKeyTypedDeliveryId" opacity="0.83" prefHeight="25.0" prefWidth="205.0" promptText="Search By Delivery ID" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
-      <ComboBox layoutX="45.0" layoutY="183.0" prefHeight="25.0" prefWidth="189.0" />
+      <TextField fx:id="txtSearchDeliveryId" layoutX="779.0" layoutY="260.0" onAction="#txtSearchDeliveryIdOnAction" onKeyTyped="#txtSearchKeyTypedDeliveryId" opacity="0.83" prefHeight="25.0" prefWidth="205.0" promptText="Search By Delivery ID" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
+      <ComboBox fx:id="comDelStatus" layoutX="45.0" layoutY="183.0" prefHeight="25.0" prefWidth="189.0" />
+      <Label layoutX="45.0" layoutY="98.0" text="Order ID:" />
+      <Label layoutX="176.0" layoutY="98.0" text="Delivery ID:" />
+      <Label fx:id="lblOrderId" layoutX="45.0" layoutY="119.0" prefHeight="20.0" prefWidth="95.0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblDeliveryId" layoutX="176.0" layoutY="122.0" prefHeight="20.0" prefWidth="95.0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblinvalidwrongduedate" layoutX="477.0" layoutY="231.0" text="Wrong Due Date" textFill="RED">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

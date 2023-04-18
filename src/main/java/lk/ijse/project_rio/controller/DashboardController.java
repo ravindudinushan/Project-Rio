@@ -88,4 +88,11 @@ public class DashboardController {
     public void logoutbtnOnMousePressed(MouseEvent mouseEvent) throws IOException {
         LogOutController.logout(adminDashPane);
     }
+
+    public void onActionreportsbtn(ActionEvent actionEvent) throws IOException {
+        Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.project_rio.view/report_form.fxml"));
+        adminChangingPane.getChildren().clear();
+        adminChangingPane.getChildren().add(load);
+        BtnColorController.btncolor(reportsbtn,adminChangingPane);
+    }
 }

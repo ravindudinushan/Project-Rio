@@ -128,8 +128,6 @@ public class OrderFormController {
     @FXML
     private TextField txtpaidamount;
 
-
-
     private ObservableList<CartTM> obList = FXCollections.observableArrayList();
 
     @FXML

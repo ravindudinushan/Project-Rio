@@ -5,6 +5,9 @@ import org.controlsfx.validation.Severity;
 import org.controlsfx.validation.ValidationResult;
 import org.controlsfx.validation.Validator;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -78,5 +81,14 @@ public class ValidateField {
         Pattern p = Pattern.compile(pattern);
         Matcher m = p.matcher(custId);
         return m.matches();
+    }
+
+    public static boolean dateCheck(String dateStr) {
+        try {
+            LocalDate.parse(dateStr, DateTimeFormatter.ISO_LOCAL_DATE);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
     }
 }
