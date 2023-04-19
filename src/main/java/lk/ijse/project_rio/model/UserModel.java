@@ -39,4 +39,10 @@ public class UserModel {
             }
             return null;
     }
+
+    public static boolean update(String username, String newpassword) throws SQLException {
+        String sql = "UPDATE user SET password =? WHERE userName = ?";
+
+        return CrudUtil.execute(sql,newpassword,username);
+    }
 }

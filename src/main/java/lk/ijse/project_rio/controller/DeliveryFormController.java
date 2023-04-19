@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.project_rio.dto.Delivery;
 import lk.ijse.project_rio.dto.tm.DeliveryTM;
@@ -109,7 +110,7 @@ public class DeliveryFormController {
             try {
                 boolean isDeleted = DeliveryModel.delete(delid);
                 if (isDeleted) {
-//                    boolean isUpdated = OrderModel.updatedelivery(ordid);
+                   boolean isUpdated = OrderModel.updatedelivery(ordid);
                     AlertController.confirmmessage("Delivery Cancelled Successfully");
                     lblOrderId.setText("");
                     lblDeliveryId.setText("");
@@ -133,13 +134,11 @@ public class DeliveryFormController {
         String delsts = comDelStatus.getValue();
         String loc = txtLocation.getText();
         String deldate = String.valueOf(txtDate.getValue());
-        String duedate = txtDueDate.getText();
         String orderid = lblOrderId.getText();
         String empid = comEmpId.getValue();
 
         if(ValidateField.dateCheck(deldate) || deldate.equals("Pending")) {
-            if(ValidateField.dateCheck(duedate) || duedate.isEmpty()) {
-                Delivery delivery = new Delivery(delid, delsts, loc, deldate, duedate, orderid, empid);
+                Delivery delivery = new Delivery(delid,deldate,delsts, loc, orderid, empid);
                 try {
                     boolean isUpdated = DeliveryModel.update(delivery);
                     if (isUpdated) {
@@ -150,7 +149,6 @@ public class DeliveryFormController {
                         comEmpId.setValue(null);
                         txtLocation.setText("");
                         txtDate.setValue(null);
-                        txtDueDate.setText("");
                         getAll();
                     }
                 } catch (SQLException e) {
@@ -161,23 +159,9 @@ public class DeliveryFormController {
                 lblinvalidwrongduedate.setVisible(true);
             }
         }
-    }
 
     @FXML
     void txtSearchDeliveryIdOnAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void txtSearchDueDateOnAction(ActionEvent event) throws SQLException {
-        String duedate = txtSearchDueDate.getText();
-        ObservableList<DeliveryTM> obList = DeliveryModel.getByDueDate(duedate);
-
-        tblDelivery.setItems(obList);
-    }
-
-    @FXML
-    void txtSearchKeyTypedDeliveryId(KeyEvent event) {
         String delid = txtSearchOrderId.getText();
         try {
             Delivery delivery = DeliveryModel.findBydeliveryId(delid);
@@ -185,14 +169,12 @@ public class DeliveryFormController {
                 comDelStatus.setDisable(false);
                 txtLocation.setDisable(false);
                 txtDate.setDisable(false);
-                txtDueDate.setDisable(false);
                 comEmpId.setDisable(false);
 
                 lblDeliveryId.setText(delivery.getDelid());
                 comDelStatus.setValue(delivery.getDelsts());
                 txtLocation.setText(delivery.getLoc());
                 txtDate.setValue(LocalDate.parse(delivery.getDeldate()));
-                txtDueDate.setText(delivery.getDuedate());
                 lblOrderId.setText(delivery.getOrdid());
                 comEmpId.setValue(delivery.getEmpid());
 
@@ -206,10 +188,16 @@ public class DeliveryFormController {
         }
     }
 
+    @FXML
+    void txtSearchDueDateOnAction(ActionEvent event) throws SQLException {
+        String duedate = txtSearchDueDate.getText();
+        ObservableList<DeliveryTM> obList = DeliveryModel.getByDueDate(duedate);
 
+        tblDelivery.setItems(obList);
+    }
 
     @FXML
-    void txtSearchKeyTypedOrderId(KeyEvent event) {
+    void txtSearchOrderIdOnAction(ActionEvent event) {
         String id = txtSearchOrderId.getText();
         try {
             Delivery delivery = DeliveryModel.findById(id);
@@ -217,14 +205,12 @@ public class DeliveryFormController {
                 comDelStatus.setDisable(false);
                 txtLocation.setDisable(false);
                 txtDate.setDisable(false);
-                txtDueDate.setDisable(false);
                 comEmpId.setDisable(false);
 
                 lblDeliveryId.setText(delivery.getDelid());
                 comDelStatus.setValue(delivery.getDelsts());
                 txtLocation.setText(delivery.getLoc());
                 txtDate.setValue(LocalDate.parse(delivery.getDeldate()));
-                txtDueDate.setText(delivery.getDuedate());
                 lblOrderId.setText(delivery.getOrdid());
                 comEmpId.setValue(delivery.getEmpid());
 
@@ -239,18 +225,10 @@ public class DeliveryFormController {
     }
 
     @FXML
-    void txtSearchKeyTypedStatus(KeyEvent event) {
-
-    }
-
-    @FXML
-    void txtSearchOrderIdOnAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void txtSearchStatusOnAction(ActionEvent event) {
-
+    void txtSearchStatusOnAction(ActionEvent event) throws SQLException {
+            String delists = String.valueOf(comDelStatus.getValue());
+            ObservableList<DeliveryTM> obList = DeliveryModel.getByDeliveryStatus(delists);
+            tblDelivery.setItems(obList);
     }
 
     private void loadEmployeeIds() {
@@ -268,11 +246,30 @@ public class DeliveryFormController {
         }
     }
 
+    public void tblDeliveryOnMouseClicked(MouseEvent mouseEvent) {
+        TablePosition pos = tblDelivery.getSelectionModel().getSelectedCells().get(0);
+        int row = pos.getRow();
+        // Get the data from the selected row
+        ObservableList<TableColumn<DeliveryTM, ?>> columns = tblDelivery.getColumns();
+
+        lblOrderId.setText(columns.get(0).getCellData(row).toString());
+        lblDeliveryId.setText(columns.get(1).getCellData(row).toString());
+        txtDate.setValue(LocalDate.parse(columns.get(2).getCellData(row).toString()));
+        comDelStatus.setValue(columns.get(3).getCellData(row).toString());
+        txtLocation.setText(columns.get(4).getCellData(row).toString());
+        comEmpId.setValue(columns.get(5).getCellData(row).toString());
+
+        comDelStatus.setDisable(false);
+        txtLocation.setDisable(false);
+        txtDate.setDisable(false);
+        comEmpId.setDisable(false);
+    }
+
     private void setCellValueFactory() {
         colOrderId.setCellValueFactory(new PropertyValueFactory<>("orderid"));
         colDeliveryId.setCellValueFactory(new PropertyValueFactory<>("delid"));
         colDeliveryStatus.setCellValueFactory(new PropertyValueFactory<>("delstatus"));
-        colDate.setCellValueFactory(new PropertyValueFactory<>("duedate"));
+        colDate.setCellValueFactory(new PropertyValueFactory<>("deldate"));
         colLocation.setCellValueFactory(new PropertyValueFactory<>("location"));
         colEmpId.setCellValueFactory(new PropertyValueFactory<>("empid"));
     }
@@ -295,7 +292,6 @@ public class DeliveryFormController {
         comDelStatus.setDisable(true);
         txtLocation.setDisable(true);
         txtDate.setDisable(true);
-        txtDueDate.setDisable(true);
         comEmpId.setDisable(true);
         assert adminChangingPane != null : "fx:id=\"adminChangingPane\" was not injected: check your FXML file 'delivery_form.fxml'.";
         assert btnDelete != null : "fx:id=\"btnDelete\" was not injected: check your FXML file 'delivery_form.fxml'.";
@@ -318,7 +314,17 @@ public class DeliveryFormController {
         assert txtSearchStatus != null : "fx:id=\"txtSearchStatus\" was not injected: check your FXML file 'delivery_form.fxml'.";
         comDelStatus.getItems().addAll("Completed","Not Yet Completed","Pending");
 
-        lblinvalidwrongduedate.setVisible(false);
     }
 
+    public void txtSearchKeyTypedOrderId(KeyEvent keyEvent) {
+    }
+
+    public void txtSearchKeyTypedStatus(KeyEvent keyEvent) {
+    }
+
+    public void txtSearchKeyTypedDueDate(KeyEvent keyEvent) {
+    }
+
+    public void txtSearchKeyTypedDeliveryId(KeyEvent keyEvent) {
+    }
 }

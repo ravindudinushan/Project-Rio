@@ -7,10 +7,9 @@ import lombok.Data;
 @AllArgsConstructor
 public class Delivery {
     private String delid;
+    private String deldate;
     private String delsts;
     private String loc;
-    private String deldate;
-    private String duedate;
     private String ordid;
     private String empid;
 }

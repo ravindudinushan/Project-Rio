@@ -18,27 +18,26 @@ public class DeliveryModel {
         ResultSet resultSet = CrudUtil.execute(sql);
         while (resultSet.next()) {
             obList.add(new DeliveryTM(
-                    resultSet.getString(6),
-                    resultSet.getString(1),
-                    resultSet.getString(2),
                     resultSet.getString(5),
-                    resultSet.getString(4),
+                    resultSet.getString(1),
                     resultSet.getString(3),
-                    resultSet.getString(7)
+                    resultSet.getString(2),
+                    resultSet.getString(4),
+                    resultSet.getString(6)
             ));
         }
         return obList;
     }
 
     public static boolean update(Delivery delivery) throws SQLException {
-        String sql = "UPDATE delivery SET delivery_status=?,location=?,delivered_date=?,due_date=?,emp_id=? WHERE delivery_id=?";
+        String sql = "UPDATE delivery SET delivery_status=?,delivered_date=?,location=?,orderId=?,empId=? WHERE deliveryId=?";
 
         return CrudUtil.execute(
                 sql,
                 delivery.getDelsts(),
-                delivery.getLoc(),
                 delivery.getDeldate(),
-                delivery.getDuedate(),
+                delivery.getLoc(),
+                delivery.getOrdid(),
                 delivery.getEmpid(),
                 delivery.getDelid()
         );
@@ -61,8 +60,7 @@ public class DeliveryModel {
                     resultSet.getString(3),
                     resultSet.getString(4),
                     resultSet.getString(5),
-                    resultSet.getString(6),
-                    resultSet.getString(7)
+                    resultSet.getString(6)
             ));
         }
         return null;
@@ -76,13 +74,12 @@ public class DeliveryModel {
         ResultSet resultSet = CrudUtil.execute(sql,delists);
         while (resultSet.next()) {
             obList.add(new DeliveryTM(
-                    resultSet.getString(6),
-                    resultSet.getString(1),
-                    resultSet.getString(2),
                     resultSet.getString(5),
-                    resultSet.getString(4),
+                    resultSet.getString(1),
                     resultSet.getString(3),
-                    resultSet.getString(7)
+                    resultSet.getString(2),
+                    resultSet.getString(4),
+                    resultSet.getString(6)
             ));
         }
         return obList;
@@ -96,13 +93,12 @@ public class DeliveryModel {
         ResultSet resultSet = CrudUtil.execute(sql,duedate);
         while (resultSet.next()) {
             obList.add(new DeliveryTM(
-                    resultSet.getString(6),
-                    resultSet.getString(1),
-                    resultSet.getString(2),
                     resultSet.getString(5),
-                    resultSet.getString(4),
+                    resultSet.getString(1),
                     resultSet.getString(3),
-                    resultSet.getString(7)
+                    resultSet.getString(2),
+                    resultSet.getString(4),
+                    resultSet.getString(6)
             ));
         }
         return obList;
@@ -119,8 +115,7 @@ public class DeliveryModel {
                     resultSet.getString(3),
                     resultSet.getString(4),
                     resultSet.getString(5),
-                    resultSet.getString(6),
-                    resultSet.getString(7)
+                    resultSet.getString(6)
             ));
         }
         return null;

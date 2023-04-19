@@ -93,4 +93,15 @@ public class OrderModel {
     public static void sendObject(NewDelivery newDelivery) {
         gotnewdelivery = newDelivery;
     }
-}
+
+    public static boolean updatedelivery(String ordid) throws SQLException {
+            String sql = "UPDATE orders SET delivery=? WHERE orderId=?";
+
+            return CrudUtil.execute(
+                    sql,
+                    false,
+                    ordid
+            );
+        }
+    }
+
