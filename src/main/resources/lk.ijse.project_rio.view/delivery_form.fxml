@@ -27,12 +27,11 @@
       </Label>
       <TextField fx:id="txtLocation" layoutX="418.0" layoutY="243.0" prefHeight="25.0" prefWidth="205.0" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
       <DatePicker fx:id="txtDate" layoutX="45.0" layoutY="247.0" prefHeight="25.0" prefWidth="205.0" />
-      <TableView fx:id="tblDelivery" layoutX="176.0" layoutY="353.0" onMousePressed="#tblDeliveryOnMouseClicked" opacity="0.77" prefHeight="267.0" prefWidth="689.0">
+      <TableView fx:id="tblDelivery" layoutX="176.0" layoutY="353.0" onMouseClicked="#tblDeliveryOnMouseClicked" opacity="0.77" prefHeight="267.0" prefWidth="689.0">
          <columns>
             <TableColumn fx:id="colOrderId" prefWidth="68.6666259765625" text="Order ID" />
             <TableColumn fx:id="colDeliveryId" prefWidth="110.66668701171875" text="Delivery ID" />
             <TableColumn fx:id="colDate" prefWidth="111.99996948242188" text="Date" />
-            <TableColumn minWidth="0.0" prefWidth="1.33331298828125" text="C2" />
             <TableColumn fx:id="colDeliveryStatus" prefWidth="121.33331298828125" text="Delivery Status" />
             <TableColumn fx:id="colLocation" prefWidth="127.33334350585938" text="Location" />
             <TableColumn fx:id="colEmpId" prefWidth="145.33331298828125" text="Employee ID" />

@@ -20,8 +20,8 @@ public class DeliveryModel {
             obList.add(new DeliveryTM(
                     resultSet.getString(5),
                     resultSet.getString(1),
-                    resultSet.getString(3),
                     resultSet.getString(2),
+                    resultSet.getString(3),
                     resultSet.getString(4),
                     resultSet.getString(6)
             ));
@@ -30,7 +30,7 @@ public class DeliveryModel {
     }
 
     public static boolean update(Delivery delivery) throws SQLException {
-        String sql = "UPDATE delivery SET delivery_status=?,delivered_date=?,location=?,orderId=?,empId=? WHERE deliveryId=?";
+        String sql = "UPDATE delivery SET deliveryStatus=?,date=?,location=?,orderId=?,empId=? WHERE deliveryId=?";
 
         return CrudUtil.execute(
                 sql,
@@ -44,13 +44,13 @@ public class DeliveryModel {
     }
 
     public static boolean delete(String delid) throws SQLException {
-        String sql = "DELETE FROM delivery WHERE delivery_id=?";
+        String sql = "DELETE FROM delivery WHERE deliveryId=?";
 
         return CrudUtil.execute(sql,delid);
     }
 
     public static Delivery findById(String id) throws SQLException {
-        String sql = "SELECT * FROM delivery WHERE order_id=?";
+        String sql = "SELECT * FROM delivery WHERE orderId=?";
 
         ResultSet resultSet = CrudUtil.execute(sql,id);
         if(resultSet.next()){
@@ -67,7 +67,7 @@ public class DeliveryModel {
     }
 
     public static ObservableList<DeliveryTM> getByDeliveryStatus(String delists) throws SQLException {
-        String sql = "SELECT * FROM delivery WHERE delivery_status=?";
+        String sql = "SELECT * FROM delivery WHERE deliveryStatus=?";
 
         ObservableList<DeliveryTM> obList = FXCollections.observableArrayList();
 
@@ -76,8 +76,8 @@ public class DeliveryModel {
             obList.add(new DeliveryTM(
                     resultSet.getString(5),
                     resultSet.getString(1),
-                    resultSet.getString(3),
                     resultSet.getString(2),
+                    resultSet.getString(3),
                     resultSet.getString(4),
                     resultSet.getString(6)
             ));
@@ -85,18 +85,18 @@ public class DeliveryModel {
         return obList;
     }
 
-    public static ObservableList<DeliveryTM> getByDueDate(String duedate) throws SQLException {
-        String sql = "SELECT * FROM delivery WHERE due_date=?";
+    public static ObservableList<DeliveryTM> getByDueDate(String date) throws SQLException {
+        String sql = "SELECT * FROM delivery WHERE date=?";
 
         ObservableList<DeliveryTM> obList = FXCollections.observableArrayList();
 
-        ResultSet resultSet = CrudUtil.execute(sql,duedate);
+        ResultSet resultSet = CrudUtil.execute(sql,date);
         while (resultSet.next()) {
             obList.add(new DeliveryTM(
                     resultSet.getString(5),
                     resultSet.getString(1),
-                    resultSet.getString(3),
                     resultSet.getString(2),
+                    resultSet.getString(3),
                     resultSet.getString(4),
                     resultSet.getString(6)
             ));
@@ -105,7 +105,7 @@ public class DeliveryModel {
     }
 
     public static Delivery findBydeliveryId(String delid) throws SQLException {
-        String sql = "SELECT * FROM delivery WHERE delivery_id=?";
+        String sql = "SELECT * FROM delivery WHERE deliveryId=?";
 
         ResultSet resultSet = CrudUtil.execute(sql,delid);
         if(resultSet.next()){

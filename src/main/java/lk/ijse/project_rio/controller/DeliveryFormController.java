@@ -259,6 +259,7 @@ public class DeliveryFormController {
         txtLocation.setText(columns.get(4).getCellData(row).toString());
         comEmpId.setValue(columns.get(5).getCellData(row).toString());
 
+
         comDelStatus.setDisable(false);
         txtLocation.setDisable(false);
         txtDate.setDisable(false);

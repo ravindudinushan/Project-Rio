@@ -3,6 +3,7 @@ package lk.ijse.project_rio.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,15 +11,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import lk.ijse.project_rio.dto.User;
 import lk.ijse.project_rio.model.UserModel;
 import lk.ijse.project_rio.util.AlertController;
+import lk.ijse.project_rio.util.ValidateField;
 
 public class SignupPageFormController {
 
@@ -51,6 +51,9 @@ public class SignupPageFormController {
 
     @FXML
     private TextField signTxt5;
+
+    @FXML
+    private Label passlabel;
 
     @FXML
     private Stage stage;
@@ -95,5 +98,23 @@ public class SignupPageFormController {
         stage.setScene(scene);
         stage.centerOnScreen();
         stage.show();
+    }
+
+    public void signTxt2OnKeyTyped(KeyEvent keyEvent) {
+//        String password = signTxt2.getText();
+//
+//        // Check if the password is valid
+//        List<String> messages = ValidateField.getValidationMessages(password);
+//        if (messages.isEmpty()) {
+//            passlabel.setStyle("-fx-text-fill: #27cb27; -fx-background-color: black; -fx-background-radius: 10; -fx-font-family: Offside; -fx-padding: 10");
+//            passlabel.setText("strong valid password");
+//            createAnAccBtn.setDisable(false);
+//        } else {
+//            String message = String.join(", ", messages);
+//            passlabel.setStyle("-fx-text-fill: red; -fx-background-color: black; -fx-background-radius: 10; -fx-font-family: Offside; -fx-padding: 10");
+//            passlabel.setText(message);
+//            createAnAccBtn.setDisable(true);
+//        }
+//        passlabel.setVisible(true);
     }
 }

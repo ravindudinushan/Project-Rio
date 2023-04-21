@@ -75,7 +75,7 @@
             <Image url="@../lk.ijse.project_rio.assets/search.png" />
          </image>
       </ImageView>
-      <TextField fx:id="txtempsalary" layoutX="785.0" layoutY="248.0" prefHeight="25.0" prefWidth="205.0" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
+      <TextField fx:id="txtempsalary" layoutX="785.0" layoutY="248.0" onMouseClicked="#txtempsalaryOnMouseClicked" prefHeight="25.0" prefWidth="205.0" styleClass="employeeFeild" stylesheets="@../lk.ijse.project_rio.styles/style.css" />
       <Label layoutX="783.0" layoutY="229.0" text="Salary:" />
       <Label fx:id="lblinvalidemployeeid" layoutX="120.0" layoutY="101.0" prefHeight="17.0" prefWidth="154.0" text="Invalide Employee ID" textFill="#ed0740">
          <font>
@@ -93,6 +93,11 @@
          </font>
       </Label>
       <Label fx:id="lblinvalidcontact" layoutX="836.0" layoutY="162.0" prefHeight="17.0" prefWidth="154.0" text="Invalide Employee Contact" textFill="#ed0740">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblinvalidsalary" layoutX="823.0" layoutY="229.0" prefHeight="17.0" prefWidth="154.0" text="Invalid Salary Format" textFill="#ed0740">
          <font>
             <Font size="11.0" />
          </font>

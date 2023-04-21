@@ -8,8 +8,8 @@ import lombok.Data;
 public class DeliveryTM {
     private String orderid;
     private String delid;
-    private String delstatus;
     private String deldate;
+    private String delstatus;
     private String location;
     private String empid;
 }

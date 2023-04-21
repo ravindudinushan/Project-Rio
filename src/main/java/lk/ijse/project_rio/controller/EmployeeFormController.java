@@ -118,6 +118,9 @@ public class EmployeeFormController {
     @FXML
     private Label lblinvalidnic;
 
+    @FXML
+    private Label lblinvalidsalary;
+
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
@@ -157,7 +160,6 @@ public class EmployeeFormController {
         String contact = txtempcontact.getText();
         String address = txtempaddress.getText();
         String email = txtempemail.getText();
-        Double salary = Double.valueOf(txtempsalary.getText());
 
 //        Employee employee= new Employee(id,name,nic,dob,address,email,job,contact,salary);
 //        try {
@@ -190,29 +192,33 @@ public class EmployeeFormController {
                                     if (ValidateField.contactCheck(contact)) {
                                         if (ValidateField.emailCheck(email)) {
                                             if (ValidateField.nicCheck(nic)) {
+                                                if (ValidateField.priceCheck(txtempsalary.getText())) {
+                                                    Double salary = Double.valueOf(txtempsalary.getText());
 
+                                                    Employee employee = new Employee(id,name,nic,dob,address,email,job,contact,salary);
 
-                                                Employee employee = new Employee(id,name,nic,dob,address,email,job,contact,salary);
-
-                                                try {
-                                                    boolean isSaved = EmployeeModel.save(employee);
-                                                    if (isSaved) {
-                                                        AlertController.confirmmessage("New employee added successfully");
-                                                        txtempid.setText(null);
-                                                        txtempname.setText(null);
-                                                        txtempdob.setValue(null);
-                                                        txtempaddress.setText(null);
-                                                        txtempcontact.setText(null);
-                                                        txtempemail.setText(null);
-                                                        txtempjob.setText(null);
-                                                        txtempnic.setText(null);
-                                                        getAll();
+                                                    try {
+                                                        boolean isSaved = EmployeeModel.save(employee);
+                                                        if (isSaved) {
+                                                            AlertController.confirmmessage("New employee added successfully");
+                                                            txtempid.setText(null);
+                                                            txtempname.setText(null);
+                                                            txtempdob.setValue(null);
+                                                            txtempaddress.setText(null);
+                                                            txtempcontact.setText(null);
+                                                            txtempemail.setText(null);
+                                                            txtempjob.setText(null);
+                                                            txtempnic.setText(null);
+                                                            getAll();
+                                                        }
+                                                    }catch(SQLIntegrityConstraintViolationException e){
+                                                        AlertController.errormessage("This Employee ID already exists.");
+                                                    } catch (SQLException e) {
+                                                        System.out.println(e);
+                                                        new Alert(Alert.AlertType.ERROR, "something went wrong!").show();
                                                     }
-                                                }catch(SQLIntegrityConstraintViolationException e){
-                                                    AlertController.errormessage("This Employee ID already exists.");
-                                                } catch (SQLException e) {
-                                                    System.out.println(e);
-                                                    new Alert(Alert.AlertType.ERROR, "something went wrong!").show();
+                                                } else {
+                                                    lblinvalidsalary.setVisible(true);
                                                 }
                                             } else {
                                                 lblinvalidnic.setVisible(true);
@@ -258,14 +264,13 @@ public class EmployeeFormController {
         String contact = txtempcontact.getText();
         String address = txtempaddress.getText();
         String email = txtempemail.getText();
-        Double salary = Double.valueOf(txtempsalary.getText());
 
         boolean result = AlertController.okconfirmmessage("Are you sure you want to update this employees' details?");
-        if(result==true) {
-            if(id.isEmpty() || name.isEmpty() || nic.isEmpty() || dob.isEmpty() || job.isEmpty() || contact.isEmpty() || address.isEmpty()){
+        if (result == true) {
+            if (id.isEmpty() || name.isEmpty() || nic.isEmpty() || dob.isEmpty() || job.isEmpty() || contact.isEmpty() || address.isEmpty()) {
                 AlertController.errormessage("Employee not saved successfully.\nPlease make sure to fill out all the required fields.");
-            }else{
-                if(ValidateField.employeeIdCheck(id)) {
+            } else {
+                if (ValidateField.employeeIdCheck(id)) {
                     if (ValidateField.nicCheck(nic) || ValidateField.emailCheck(email) || ValidateField.contactCheck(contact)) {
                         if (ValidateField.nicCheck(nic) || ValidateField.emailCheck(email)) {
                             if (ValidateField.nicCheck(nic) || ValidateField.contactCheck(contact)) {
@@ -273,57 +278,62 @@ public class EmployeeFormController {
                                     if (ValidateField.contactCheck(contact)) {
                                         if (ValidateField.emailCheck(email)) {
                                             if (ValidateField.nicCheck(nic)) {
-                                                Employee employee = new Employee(id, name, nic, dob, address, email,job, contact, salary);
-                                                  try {
-                                                       boolean isUpdated = EmployeeModel.update(employee);
-                                                       if (isUpdated) {
-                                                          AlertController.confirmmessage("Employee Details Updated");
-                                                          txtempid.setText("");
-                                                          txtempname.setText("");
-                                                          txtempdob.setValue(null);
-                                                          txtempaddress.setText("");
-                                                          txtempcontact.setText("");
-                                                          txtempemail.setText("");
-                                                          txtempjob.setText("");
-                                                          txtempnic.setText("");
-                                                          txtempsalary.setText("");
-                                                          getAll();
+                                                if (ValidateField.priceCheck(txtempsalary.getText())) {
+                                                    Double salary = Double.valueOf(txtempsalary.getText());
+
+                                                    Employee employee = new Employee(id, name, nic, dob, address, email, job, contact, salary);
+
+                                                    try {
+                                                        boolean isSaved = EmployeeModel.save(employee);
+                                                        if (isSaved) {
+                                                            AlertController.confirmmessage("New employee added successfully");
+                                                            txtempid.setText(null);
+                                                            txtempname.setText(null);
+                                                            txtempdob.setValue(null);
+                                                            txtempaddress.setText(null);
+                                                            txtempcontact.setText(null);
+                                                            txtempemail.setText(null);
+                                                            txtempjob.setText(null);
+                                                            txtempnic.setText(null);
+                                                            getAll();
                                                         }
-                                                }catch(SQLIntegrityConstraintViolationException e){
-                                                    AlertController.errormessage("This Employee ID already exists.");
-                                                } catch (SQLException e) {
-                                                    System.out.println(e);
-                                                    new Alert(Alert.AlertType.ERROR, "something went wrong!").show();
+
+                                                    } catch (SQLIntegrityConstraintViolationException e) {
+                                                        AlertController.errormessage("This Employee ID already exists.");
+                                                    } catch (SQLException e) {
+                                                        System.out.println(e);
+                                                        new Alert(Alert.AlertType.ERROR, "something went wrong!").show();
+                                                    }
+                                                } else {
+                                                    lblinvalidnic.setVisible(true);
                                                 }
                                             } else {
-                                                lblinvalidnic.setVisible(true);
+                                                lblinvalidemail.setVisible(true);
                                             }
                                         } else {
-                                            lblinvalidemail.setVisible(true);
+                                            lblinvalidcontact.setVisible(true);
                                         }
                                     } else {
+                                        lblinvalidemail.setVisible(true);
                                         lblinvalidcontact.setVisible(true);
                                     }
                                 } else {
-                                    lblinvalidemail.setVisible(true);
+                                    lblinvalidnic.setVisible(true);
                                     lblinvalidcontact.setVisible(true);
                                 }
                             } else {
+                                lblinvalidemail.setVisible(true);
                                 lblinvalidnic.setVisible(true);
-                                lblinvalidcontact.setVisible(true);
                             }
                         } else {
                             lblinvalidemail.setVisible(true);
+                            lblinvalidcontact.setVisible(true);
                             lblinvalidnic.setVisible(true);
                         }
                     } else {
-                        lblinvalidemail.setVisible(true);
-                        lblinvalidcontact.setVisible(true);
-                        lblinvalidnic.setVisible(true);
+                        lblinvalidemployeeid.setVisible(true);
+                        lblinvalidemployeeid.setStyle("-fx-text-fill: red");
                     }
-                }else{
-                    lblinvalidemployeeid.setVisible(true);
-                    lblinvalidemployeeid.setStyle("-fx-text-fill: red");
                 }
             }
         }
@@ -428,6 +438,7 @@ public class EmployeeFormController {
         lblinvalidcontact.setVisible(false);
         lblinvalidnic.setVisible(false);
         lblinvalidemployeeid.setVisible(false);
+        lblinvalidsalary.setVisible(false);
         assert btnDelete != null : "fx:id=\"btnDelete\" was not injected: check your FXML file 'employee_form.fxml'.";
         assert btnSave != null : "fx:id=\"btnSave\" was not injected: check your FXML file 'employee_form.fxml'.";
         assert btnUpdate != null : "fx:id=\"btnUpdate\" was not injected: check your FXML file 'employee_form.fxml'.";
@@ -468,5 +479,9 @@ public class EmployeeFormController {
 
     public void txtempemailOnMousePressed(MouseEvent mouseEvent) {
         lblinvalidemail.setVisible(false);
+    }
+
+    public void txtempsalaryOnMouseClicked(MouseEvent mouseEvent) {
+        lblinvalidsalary.setVisible(false);
     }
 }

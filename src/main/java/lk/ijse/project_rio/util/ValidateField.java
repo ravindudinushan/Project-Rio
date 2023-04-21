@@ -8,6 +8,8 @@ import org.controlsfx.validation.Validator;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -88,6 +90,38 @@ public class ValidateField {
             LocalDate.parse(dateStr, DateTimeFormatter.ISO_LOCAL_DATE);
             return true;
         } catch (DateTimeParseException e) {
+            return false;
+        }
+    }
+
+    public static List<String> getValidationMessages(String password) {
+        List<String> messages = new ArrayList<>();
+        if (password == null || password.length() < 8) {
+            messages.add("Password must be at least 8 characters long\n");
+        }
+        if (!password.matches(".[A-Z].")) {
+            messages.add("Password must contain at least one uppercase letter\n");
+        }
+        if (!password.matches(".[a-z].")) {
+            messages.add("Password must contain at least one lowercase letter\n");
+        }
+        if (!password.matches(".\\d.")) {
+            messages.add("Password must contain at least one digit\n");
+        }
+        if (!password.matches(".[^a-zA-Z\\d].")) {
+            messages.add("Password must contain at least one special character\n");
+        }
+        return messages;
+    }
+
+    public static boolean priceCheck(String input) {
+        try {
+            if (input.matches("\\d+(\\.\\d{1,2})?")) {
+                return true; // Input contains only numeric characters, including up to two decimal points
+            } else {
+                return false; // Input contains non-numeric characters or invalid decimal points
+            }
+        }catch(NumberFormatException e){
             return false;
         }
     }
