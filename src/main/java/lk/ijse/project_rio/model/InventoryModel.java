@@ -3,6 +3,7 @@ package lk.ijse.project_rio.model;
 import com.mysql.cj.x.protobuf.MysqlxCrud;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.chart.XYChart;
 import lk.ijse.project_rio.db.DBConnection;
 import lk.ijse.project_rio.dto.CartDTO;
 import lk.ijse.project_rio.dto.Inventory;
@@ -142,5 +143,24 @@ public class InventoryModel {
                 newLoadSupplier.getSupQty(),
                 newLoadSupplier.getItemId()
         );
+    }
+
+    public static ObservableList<XYChart.Series<String, Integer>> getDataToBarChart() throws SQLException {
+        String sql="SELECT itemName,QtyOnHand FROM item WHERE QtyOnHand<=100 ";
+
+        ObservableList<XYChart.Series<String, Integer>> datalist =FXCollections.observableArrayList();
+        ResultSet resultSet = CrudUtil.execute(sql);
+
+        // Creating a new series object
+        XYChart.Series<String, Integer> series = new XYChart.Series<>();
+
+        while(resultSet.next()){
+            String itemName = resultSet.getString("itemName");
+            int itemQty = resultSet.getInt("QtyOnHand");
+            series.getData().add(new XYChart.Data<>(itemName, itemQty));
+        }
+
+        datalist.add(series);
+        return datalist;
     }
 }

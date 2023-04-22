@@ -95,4 +95,11 @@ public class DashboardController {
         adminChangingPane.getChildren().add(load);
         BtnColorController.btncolor(reportsbtn,adminChangingPane);
     }
+
+    public void onActionHomeBtn(ActionEvent actionEvent) throws IOException {
+        Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.project_rio.view/home_form.fxml"));
+        adminChangingPane.getChildren().clear();
+        adminChangingPane.getChildren().add(load);
+        BtnColorController.btncolor(homebtn,adminChangingPane);
+    }
 }

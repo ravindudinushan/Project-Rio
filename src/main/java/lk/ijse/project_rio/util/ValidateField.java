@@ -125,4 +125,12 @@ public class ValidateField {
             return false;
         }
     }
+
+    public static boolean yearCheck(String input) {
+        if (input.matches("\\d{4}")) {
+            return true; // Input contains only numeric characters
+        } else {
+            return false; // Input contains non-numeric characters
+        }
+    }
 }

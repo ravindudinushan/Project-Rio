@@ -1,5 +1,9 @@
 package lk.ijse.project_rio.model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import lk.ijse.project_rio.db.DBConnection;
 import lk.ijse.project_rio.dto.CartDTO;
 import lk.ijse.project_rio.dto.NewDelivery;
@@ -10,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderModel {
@@ -103,5 +108,43 @@ public class OrderModel {
                     ordid
             );
         }
+
+    public static ObservableList<PieChart.Data> getDataToPieChart() throws SQLException {
+        String sql="SELECT item.itemName,COUNT(orderitemdetail.itemId) "+
+                "FROM orderitemdetail "+
+                "INNER JOIN item "+
+                "ON item.itemId = orderitemdetail.itemId " +
+                "INNER JOIN orders " +
+                "ON orderitemdetail.orderId=orders.orderId " +
+                "WHERE MONTH(orders.date) = MONTH(CURRENT_DATE()) " +
+                "GROUP BY item.itemName " +
+                "LIMIT 5 ";
+        ObservableList<PieChart.Data> datalist = FXCollections.observableArrayList();
+        ResultSet resultSet = CrudUtil.execute(sql);
+
+        while(resultSet.next()){
+            datalist.add(
+                    new PieChart.Data(
+                            resultSet.getString(1),
+                            resultSet.getInt(2)
+                    )
+            );
+        }
+        return datalist;
     }
+
+    public static List<XYChart.Data<String, Double>> getDataToAreaChart(String year) throws SQLException {
+        String sql= "SELECT MONTHNAME(date) AS month,SUM(payment) AS total_income FROM orders WHERE YEAR(date)=? GROUP BY month ORDER BY month desc";
+
+        List<XYChart.Data<String, Double>> data = new ArrayList<>();
+        ResultSet resultSet = CrudUtil.execute(sql,year);
+
+        while(resultSet.next()){
+            String month = resultSet.getString("month");
+            double income = resultSet.getDouble("total_income");
+            data.add(new XYChart.Data<>(month, income));
+        }
+        return data;
+    }
+}
 

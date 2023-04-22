@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.GaussianBlur?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="adminChangingPane" prefHeight="650.0" prefWidth="1039.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.project_rio.controller.ReportFormController">
    <children>
@@ -11,8 +14,23 @@
          <image>
             <Image url="@../lk.ijse.project_rio.assets/home.png" />
          </image>
+         <effect>
+            <GaussianBlur />
+         </effect>
       </ImageView>
-      <Button fx:id="supplyLoadDetailBtn" layoutX="92.0" layoutY="105.0" mnemonicParsing="false" onAction="#onActionsupplyLoadDetailBtn" text="Supply Load Detail" />
-      <Button fx:id="employeeBtn" layoutX="92.0" layoutY="140.0" mnemonicParsing="false" onAction="#onActionemployeeBtn" text="Employee" />
+      <Button fx:id="supplyLoadDetailBtn" layoutX="92.0" layoutY="105.0" mnemonicParsing="false" onAction="#onActionsupplyLoadDetailBtn" prefHeight="45.0" prefWidth="151.0" style="-fx-background-radius: 30;" text="Supply Load Detail">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <effect>
+            <DropShadow />
+         </effect></Button>
+      <Button fx:id="employeeBtn" layoutX="92.0" layoutY="193.0" mnemonicParsing="false" onAction="#onActionemployeeBtn" prefHeight="45.0" prefWidth="159.0" style="-fx-background-radius: 30;" text="Employee">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <effect>
+            <DropShadow />
+         </effect></Button>
    </children>
 </AnchorPane>

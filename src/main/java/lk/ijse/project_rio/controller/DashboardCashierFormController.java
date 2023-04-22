@@ -102,4 +102,11 @@ public class DashboardCashierFormController {
         cashierChangingPane.getChildren().add(load);
         BtnColorController.btncolor(deliverybtn,cashierChangingPane);
     }
+
+    public void onActionHomeBtn(ActionEvent actionEvent) throws IOException {
+        Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.project_rio.view/home_form.fxml"));
+        cashierChangingPane.getChildren().clear();
+        cashierChangingPane.getChildren().add(load);
+        BtnColorController.btncolor(homebtn,cashierChangingPane);
+    }
 }

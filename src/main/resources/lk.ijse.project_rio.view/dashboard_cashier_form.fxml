@@ -39,7 +39,7 @@
                   <Image url="@../lk.ijse.project_rio.assets/homePagePane.png" />
                </image>
             </ImageView>
-            <Button fx:id="homebtn" layoutX="56.0" layoutY="173.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="138.0" style="-fx-background-color: brown;" styleClass="dashbuttons" stylesheets="@../lk.ijse.project_rio.styles/style.css" text="Home">
+            <Button fx:id="homebtn" layoutX="56.0" layoutY="173.0" mnemonicParsing="false" onAction="#onActionHomeBtn" prefHeight="39.0" prefWidth="138.0" style="-fx-background-color: brown;" styleClass="dashbuttons" stylesheets="@../lk.ijse.project_rio.styles/style.css" text="Home">
                <effect>
                   <DropShadow />
                </effect>
