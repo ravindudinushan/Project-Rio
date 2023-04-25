@@ -1,6 +1,10 @@
 package lk.ijse.project_rio.controller;
 
+import java.awt.*;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -108,5 +112,15 @@ public class DashboardCashierFormController {
         cashierChangingPane.getChildren().clear();
         cashierChangingPane.getChildren().add(load);
         BtnColorController.btncolor(homebtn,cashierChangingPane);
+    }
+
+    public void googleIconOnMouseClicked(MouseEvent mouseEvent) throws URISyntaxException, IOException {
+        Desktop.getDesktop().browse(new URI("https://www.google.com/webhp?hl=en&sa=X&ved=0ahUKEwjj6fjShOb9AhX9XmwGHc_XAIEQPAgI"));
+
+    }
+
+    public void fbIconOnMouseClicked(MouseEvent mouseEvent) throws URISyntaxException, IOException {
+        Desktop.getDesktop().browse(new URI("https://en.wikipedia.org/wiki/Facebook"));
+
     }
 }

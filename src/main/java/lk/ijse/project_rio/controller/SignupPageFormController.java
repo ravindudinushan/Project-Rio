@@ -101,20 +101,20 @@ public class SignupPageFormController {
     }
 
     public void signTxt2OnKeyTyped(KeyEvent keyEvent) {
-//        String password = signTxt2.getText();
-//
-//        // Check if the password is valid
-//        List<String> messages = ValidateField.getValidationMessages(password);
-//        if (messages.isEmpty()) {
-//            passlabel.setStyle("-fx-text-fill: #27cb27; -fx-background-color: black; -fx-background-radius: 10; -fx-font-family: Offside; -fx-padding: 10");
-//            passlabel.setText("strong valid password");
-//            createAnAccBtn.setDisable(false);
-//        } else {
-//            String message = String.join(", ", messages);
-//            passlabel.setStyle("-fx-text-fill: red; -fx-background-color: black; -fx-background-radius: 10; -fx-font-family: Offside; -fx-padding: 10");
-//            passlabel.setText(message);
-//            createAnAccBtn.setDisable(true);
-//        }
-//        passlabel.setVisible(true);
+        String password = signTxt2.getText();
+
+        // Check if the password is valid
+        List<String> messages = ValidateField.getValidationMessages(password);
+        if (messages.isEmpty()) {
+            passlabel.setStyle("-fx-text-fill: #27cb27; -fx-background-color: black; -fx-background-radius: 10; -fx-font-family: Offside; -fx-padding: 10");
+            passlabel.setText("strong valid password");
+            createAnAccBtn.setDisable(false);
+        } else {
+            String message = String.join(", ", messages);
+            passlabel.setStyle("-fx-text-fill: red; -fx-background-color: black; -fx-background-radius: 10; -fx-font-family: Offside; -fx-padding: 10");
+            passlabel.setText(message);
+            createAnAccBtn.setDisable(true);
+        }
+        passlabel.setVisible(true);
     }
 }

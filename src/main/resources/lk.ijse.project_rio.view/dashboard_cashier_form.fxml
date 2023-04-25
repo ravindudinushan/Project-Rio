@@ -113,6 +113,16 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Button>
+            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="83.0" layoutY="600.0" onMouseClicked="#googleIconOnMouseClicked" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../lk.ijse.project_rio.assets/google.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="127.0" layoutY="600.0" onMouseClicked="#fbIconOnMouseClicked" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../lk.ijse.project_rio.assets/facebook.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </children>

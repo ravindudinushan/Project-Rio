@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -49,6 +50,7 @@ public class LoadingPageController {
 
                 Platform.runLater(() -> {
                     Stage stage = new Stage();
+                    stage.setTitle("Login");
                     Parent root = null;
                     try {
                         root = FXMLLoader.load(getClass().getResource("/lk.ijse.project_rio.view/login_page.fxml"));
@@ -57,6 +59,7 @@ public class LoadingPageController {
                     }
                     Scene scene = new Scene(root);
                     stage.setScene(scene);
+                    stage.getIcons().add(new Image("lk.ijse.project_rio.assets/logo.png"));
                     stage.show();
                     loadingPane.getScene().getWindow().hide();
                 });

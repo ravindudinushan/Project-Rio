@@ -12,7 +12,10 @@ import lk.ijse.project_rio.util.BtnColorController;
 import lk.ijse.project_rio.util.LogOutController;
 import lk.ijse.project_rio.util.TimeAndDateController;
 
+import java.awt.*;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 public class DashboardController {
 
@@ -101,5 +104,13 @@ public class DashboardController {
         adminChangingPane.getChildren().clear();
         adminChangingPane.getChildren().add(load);
         BtnColorController.btncolor(homebtn,adminChangingPane);
+    }
+
+    public void googleIconOnMouseClicked(MouseEvent mouseEvent) throws URISyntaxException, IOException {
+        Desktop.getDesktop().browse(new URI("https://www.google.com/webhp?hl=en&sa=X&ved=0ahUKEwjj6fjShOb9AhX9XmwGHc_XAIEQPAgI"));
+    }
+
+    public void fbIconOnMouseClicked(MouseEvent mouseEvent) throws URISyntaxException, IOException {
+        Desktop.getDesktop().browse(new URI("https://en.wikipedia.org/wiki/Facebook"));
     }
 }

@@ -15,6 +15,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -27,6 +28,7 @@ import lk.ijse.project_rio.model.InventoryModel;
 import lk.ijse.project_rio.model.OrderModel;
 import lk.ijse.project_rio.util.AlertController;
 import lk.ijse.project_rio.util.TimeAndDateController;
+import lk.ijse.project_rio.util.ValidateField;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -126,7 +128,16 @@ public class OrderFormController {
     private Label balancelbl;
 
     @FXML
+    private Label lblmoremoneyneeded;
+
+    @FXML
     private TextField txtpaidamount;
+
+    @FXML
+    private Label txtmoremoney;
+
+    @FXML
+    private Label lblmoreneeded;
 
     private ObservableList<CartTM> obList = FXCollections.observableArrayList();
 
@@ -143,28 +154,42 @@ public class OrderFormController {
 
         setRemoveBtnOnAction(btnRemove); /* set action to the btnRemove */
 
-        if (!obList.isEmpty()) {
-            for (int i = 0; i < tblOrder.getItems().size(); i++) {
-                if (itemIdCol.getCellData(i).equals(code)) {
-                    qty += (int) qtyCol.getCellData(i);
-                    total = qty * unitPrice;
+        if (ValidateField.numberCheck(String.valueOf(qty))) {
+            if (qty> Integer.parseInt(lblItemQtyOnHand.getText())) {
+                AlertController.errormessage("Item Out of stock or Insufficient amount");
+            } else {
+                if (!obList.isEmpty()) {
+                    int newval= Integer.parseInt(lblItemQtyOnHand.getText())-Integer.parseInt(txtQty.getText());
+                    lblItemQtyOnHand.setText(String.valueOf(newval));
+                    for (int i = 0; i < tblOrder.getItems().size(); i++) {
+                        if (itemIdCol.getCellData(i).equals(code)) {
+                            qty += (int) qtyCol.getCellData(i);
+                            total = qty * unitPrice;
 
-                    obList.get(i).setQuantity(qty);
-                    obList.get(i).setTotal(total);
+                            obList.get(i).setQuantity(qty);
+                            obList.get(i).setTotal(total);
 
-                    tblOrder.refresh();
-                    calculateNetTotal();
-                    return;
+                            tblOrder.refresh();
+                            calculateNetTotal();
+                            return;
+                        }
+                    }
+                } else {
+                    int newval= Integer.parseInt(lblItemQtyOnHand.getText())-Integer.parseInt(txtQty.getText());
+                    lblItemQtyOnHand.setText(String.valueOf(newval));
                 }
+                CartTM tm = new CartTM(code, name, category, qty, unitPrice, total, btnRemove);
+
+                obList.add(tm);
+                tblOrder.setItems(obList);
+                calculateNetTotal();
+
+                txtQty.setText("");
             }
+        }else{
+            AlertController.errormessage("Wrong format for Quantity field");
         }
-        CartTM tm = new CartTM(code, name, category, qty, unitPrice, total, btnRemove);
 
-        obList.add(tm);
-        tblOrder.setItems(obList);
-        calculateNetTotal();
-
-        txtQty.setText("");
     }
 
     @FXML
@@ -191,10 +216,26 @@ public class OrderFormController {
             isPlaced = OrderModel.placeOrder(oId, cusId, delivery, totle, cartDTOList);
             if(isPlaced) {
                 AlertController.confirmmessage("Order Placed");
+                generateNextOrderId();
+
+                String balance = balancelbl.getText();
+                txtCustId.setValue(null);
+                txtItemId.setValue(null);
+                lblCustName.setText("");
+                lblItemName11.setText("");
+                lblItemUnitPrice.setText("");
+                lblItemCategory.setText("");
+                lblItemQtyOnHand.setText("");
+                lblNetTotle.setText("0/=");
+                radioBtn.setSelected(false);
+                tblOrder.getItems().clear();
+                txtpaidamount.setText("");
+                balancelbl.setVisible(false);
+                lblNetTotle.setVisible(false);
+                //txtmoremoney.setText("");
                 boolean result = AlertController.okconfirmmessage("Do you want the bill ?");
 
                 if (result) { String printcash = txtpaidamount.getText();
-                    String balance = balancelbl.getText();
 
                     Map<String, Object> parameters = new HashMap<>();
                     parameters.put("param1", printcash);
@@ -228,6 +269,7 @@ public class OrderFormController {
                 e.printStackTrace();
             }
             stage.centerOnScreen();
+            stage.getIcons().add(new Image("lk.ijse.project_rio.assets/logo.png"));
             stage.show();
         }
     }
@@ -284,10 +326,19 @@ public class OrderFormController {
             Optional<ButtonType> result = new Alert(Alert.AlertType.INFORMATION, "Are you sure to remove?", yes, no).showAndWait();
 
             if (result.orElse(no) == yes) {
-
                 int index = tblOrder.getSelectionModel().getSelectedIndex();
-                obList.remove(index);
 
+                TablePosition pos = tblOrder.getSelectionModel().getSelectedCells().get(0);
+                int row = pos.getRow();
+                ObservableList<TableColumn<CartTM, ?>> columns = tblOrder.getColumns();
+
+                String itemName = String.valueOf(columns.get(1).getCellData(row));
+                int newval = Integer.parseInt(lblItemQtyOnHand.getText()) + Integer.parseInt(columns.get(3).getCellData(row).toString());
+                if(itemName.equals(lblItemName11.getText())) {
+                    lblItemQtyOnHand.setText(String.valueOf(newval));
+                }
+
+                obList.remove(index);
                 tblOrder.refresh();
                 calculateNetTotal();
             }
@@ -373,7 +424,9 @@ public class OrderFormController {
         assert txtItemId != null : "fx:id=\"txtItemId\" was not injected: check your FXML file 'order_form.fxml'.";
         assert txtQty != null : "fx:id=\"txtQty\" was not injected: check your FXML file 'order_form.fxml'.";
         assert unitPriceCol != null : "fx:id=\"unitPriceCol\" was not injected: check your FXML file 'order_form.fxml'.";
+        placeOrderBt.setDisable(true);
 
+        lblmoreneeded.setVisible(false);
     }
 
     public void orderReportOnAction(ActionEvent actionEvent) {
@@ -381,9 +434,30 @@ public class OrderFormController {
     }
 
     public void txtpaidamountKeyTyped(KeyEvent keyEvent) {
-        if(!txtpaidamount.getText().isEmpty()){
-            double balance = Double.parseDouble(txtpaidamount.getText())-Double.parseDouble(lblNetTotle.getText());
-                balancelbl.setText(String.valueOf(balance));
+        if (!txtpaidamount.getText().isEmpty()) {
+            if (ValidateField.priceCheck(txtpaidamount.getText())) {
+                double balance = Double.parseDouble(txtpaidamount.getText()) - Double.parseDouble(lblNetTotle.getText());
+                if (balance >= 0) {
+                    txtpaidamount.setStyle("-fx-text-fill: black");
+                    balancelbl.setText(String.valueOf(balance));
+                    balancelbl.setVisible(true);
+                    lblmoreneeded.setVisible(false);
+                    txtmoremoney.setText("");
+                    placeOrderBt.setDisable(false);
+                } else if (balance < 0) {
+                    txtpaidamount.setStyle("-fx-text-fill: black");
+                    placeOrderBt.setDisable(true);
+                    balancelbl.setVisible(false);
+                    double positbalance = Math.abs(balance);
+                    lblmoreneeded.setVisible(true);
+                    txtmoremoney.setText(positbalance + "/=");
+                }
+            } else {
+                placeOrderBt.setDisable(true);
+                txtpaidamount.setStyle("-fx-text-fill: red");
+                balancelbl.setVisible(false);
+
+            }
         }
     }
 }

@@ -99,16 +99,16 @@ public class ValidateField {
         if (password == null || password.length() < 8) {
             messages.add("Password must be at least 8 characters long\n");
         }
-        if (!password.matches(".[A-Z].")) {
+        if (!password.matches(".*[A-Z].*")) {
             messages.add("Password must contain at least one uppercase letter\n");
         }
-        if (!password.matches(".[a-z].")) {
+        if (!password.matches(".*[a-z].*")) {
             messages.add("Password must contain at least one lowercase letter\n");
         }
-        if (!password.matches(".\\d.")) {
+        if (!password.matches(".*\\d.*")) {
             messages.add("Password must contain at least one digit\n");
         }
-        if (!password.matches(".[^a-zA-Z\\d].")) {
+        if (!password.matches(".*[!@#$%^&*()-_=+\\\\[\\\\]{};:\\\"\\\\\\\\|,.<>/?].*")) {
             messages.add("Password must contain at least one special character\n");
         }
         return messages;
@@ -131,6 +131,22 @@ public class ValidateField {
             return true; // Input contains only numeric characters
         } else {
             return false; // Input contains non-numeric characters
+        }
+    }
+    public static boolean salaryIdCheck(String salaryId) {
+        String pattern = "^\\d{4}-(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)-\\d+$";
+        return salaryId.matches(pattern);
+    }
+
+    public static boolean numberCheck(String input) {
+        try {
+            if (input.matches("\\d+")) {
+                return true; // Input contains only numeric characters
+            } else {
+                return false; // Input contains non-numeric characters
+            }
+        } catch (NumberFormatException e) {
+            return false;
         }
     }
 }

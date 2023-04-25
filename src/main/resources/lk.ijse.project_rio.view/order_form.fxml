@@ -25,7 +25,7 @@
             <Font name="Times New Roman Bold Italic" size="36.0" />
          </font>
       </Label>
-      <TableView fx:id="tblOrder" layoutX="99.0" layoutY="340.0" opacity="0.77" prefHeight="267.0" prefWidth="843.0">
+      <TableView fx:id="tblOrder" layoutX="99.0" layoutY="325.0" opacity="0.77" prefHeight="267.0" prefWidth="843.0">
          <columns>
             <TableColumn fx:id="itemIdCol" prefWidth="107.33333587646484" text="Item ID" />
             <TableColumn fx:id="itemNameCol" prefWidth="168.00001525878906" text="Item Name" />
@@ -93,7 +93,7 @@
          </font>
       </Label>
       <RadioButton fx:id="radioBtn" layoutX="99.0" layoutY="292.0" mnemonicParsing="false" onAction="#clickOnActionRadioBtn" text="Yes" />
-      <Label layoutX="157.0" layoutY="617.0" text="Net Total:">
+      <Label layoutX="157.0" layoutY="602.0" text="Net Total:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -137,24 +137,34 @@
          <font>
             <Font name="System Bold Italic" size="14.0" />
          </font></Label>
-      <Label fx:id="lblNetTotle" layoutX="219.0" layoutY="617.0" prefHeight="17.0" prefWidth="138.0">
+      <Label fx:id="lblNetTotle" layoutX="219.0" layoutY="602.0" prefHeight="17.0" prefWidth="138.0">
          <font>
             <Font name="System Bold Italic" size="14.0" />
          </font></Label>
-      <TextField fx:id="txtpaidamount" layoutX="464.0" layoutY="613.0" onKeyTyped="#txtpaidamountKeyTyped" prefHeight="25.0" prefWidth="95.0" />
-      <Label layoutX="379.0" layoutY="618.0" text="Paid Amount:">
+      <TextField fx:id="txtpaidamount" layoutX="464.0" layoutY="598.0" onKeyTyped="#txtpaidamountKeyTyped" prefHeight="25.0" prefWidth="95.0" />
+      <Label layoutX="379.0" layoutY="603.0" text="Paid Amount:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <Label layoutX="608.0" layoutY="617.0" text="Balance:">
+      <Label layoutX="608.0" layoutY="602.0" text="Balance:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <Label fx:id="balancelbl" layoutX="659.0" layoutY="617.0" prefHeight="17.0" prefWidth="95.0">
+      <Label fx:id="balancelbl" layoutX="659.0" layoutY="602.0" prefHeight="17.0" prefWidth="95.0">
          <font>
             <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblmoreneeded" layoutX="379.0" layoutY="625.0" text="More money needed:" textFill="RED">
+         <font>
+            <Font name="System Bold" size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="txtmoremoney" layoutX="494.0" layoutY="625.0" textFill="RED">
+         <font>
+            <Font name="System Bold" size="11.0" />
          </font>
       </Label>
    </children>

@@ -14,6 +14,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import lk.ijse.project_rio.dto.User;
@@ -55,6 +56,7 @@ public class LoginPageController {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.centerOnScreen();
+        stage.getIcons().add(new Image("lk.ijse.project_rio.assets/logo.png"));
         stage.show();
     }
 
@@ -83,6 +85,7 @@ public class LoginPageController {
                     stage.setTitle("DashBoard");
                     stage.setScene(new Scene(root1));
                     stage.setResizable(false);
+                    stage.getIcons().add(new Image("lk.ijse.project_rio.assets/logo.png"));
                     stage.show();
                 }));
                 timeline.play();
@@ -102,6 +105,7 @@ public class LoginPageController {
                     stage.setTitle("DashBoard");
                     stage.setScene(new Scene(root1));
                     stage.setResizable(false);
+                    stage.getIcons().add(new Image("lk.ijse.project_rio.assets/logo.png"));
                     stage.show();
                 }));
                 timeline.play();
@@ -131,6 +135,7 @@ public class LoginPageController {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.centerOnScreen();
+        stage.getIcons().add(new Image("lk.ijse.project_rio.assets/logo.png"));
         stage.show();
     }
 }

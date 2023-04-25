@@ -3,6 +3,7 @@ package lk.ijse.project_rio.util;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -17,6 +18,7 @@ public class LogOutController {
 
         stage.setTitle("Login Page");
         stage.setScene(new Scene(root1));
+        stage.getIcons().add(new Image("lk.ijse.project_rio.assets/logo.png"));
         stage.show();
     }
 }
