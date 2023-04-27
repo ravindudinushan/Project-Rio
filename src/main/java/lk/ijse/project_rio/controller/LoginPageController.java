@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import lk.ijse.project_rio.dto.User;
 import lk.ijse.project_rio.model.UserModel;
+import lk.ijse.project_rio.util.AlertController;
 import lk.ijse.project_rio.util.LoginMessageController;
 
 public class LoginPageController {
@@ -68,49 +69,53 @@ public class LoginPageController {
 
         try {
             User user = UserModel.findbyusername(username);
-            if(user.getPassword().equals(password) && user.getJobTitle().equalsIgnoreCase(combo) && combo.equals("Admin")) {
-                LoginMessageController.loginsuccessfulmsg();
+            if (user==null) {
+                AlertController.errormessage("User Name Not Found");
+            } else {
+                if(user.getPassword().equals(password) && user.getJobTitle().equalsIgnoreCase(combo) && combo.equals("Admin")) {
+                    LoginMessageController.loginsuccessfulmsg();
 
-                Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> {
-                    loginBtn.getScene().getWindow().hide();
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/lk.ijse.project_rio.view/dashboard_form.fxml"));
-                    Parent root1 = null;
-                    try {
-                        root1 = fxmlLoader.load();
-                    } catch (IOException e) {
-                        System.out.println(e);
-                        e.printStackTrace();
-                    }
-                    Stage stage = new Stage();
-                    stage.setTitle("DashBoard");
-                    stage.setScene(new Scene(root1));
-                    stage.setResizable(false);
-                    stage.getIcons().add(new Image("lk.ijse.project_rio.assets/logo.png"));
-                    stage.show();
-                }));
-                timeline.play();
-            }else if(user.getPassword().equals(password) && user.getJobTitle().equalsIgnoreCase(combo) && combo.equals("Cashier")) {
-                LoginMessageController.loginsuccessfulmsg();
+                    Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> {
+                        loginBtn.getScene().getWindow().hide();
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/lk.ijse.project_rio.view/dashboard_form.fxml"));
+                        Parent root1 = null;
+                        try {
+                            root1 = fxmlLoader.load();
+                        } catch (IOException e) {
+                            System.out.println(e);
+                            e.printStackTrace();
+                        }
+                        Stage stage = new Stage();
+                        stage.setTitle("DashBoard");
+                        stage.setScene(new Scene(root1));
+                        stage.setResizable(false);
+                        stage.getIcons().add(new Image("lk.ijse.project_rio.assets/logo.png"));
+                        stage.show();
+                    }));
+                    timeline.play();
+                }else if(user.getPassword().equals(password) && user.getJobTitle().equalsIgnoreCase(combo) && combo.equals("Cashier")) {
+                    LoginMessageController.loginsuccessfulmsg();
 
-                Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> {
-                    loginBtn.getScene().getWindow().hide();
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/lk.ijse.project_rio.view/dashboard_cashier_form.fxml"));
-                    Parent root1 = null;
-                    try {
-                        root1 = fxmlLoader.load();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    Stage stage = new Stage();
-                    stage.setTitle("DashBoard");
-                    stage.setScene(new Scene(root1));
-                    stage.setResizable(false);
-                    stage.getIcons().add(new Image("lk.ijse.project_rio.assets/logo.png"));
-                    stage.show();
-                }));
-                timeline.play();
-            }else{
-                LoginMessageController.loginunsuccessfulmsg();
+                    Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> {
+                        loginBtn.getScene().getWindow().hide();
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/lk.ijse.project_rio.view/dashboard_cashier_form.fxml"));
+                        Parent root1 = null;
+                        try {
+                            root1 = fxmlLoader.load();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        Stage stage = new Stage();
+                        stage.setTitle("DashBoard");
+                        stage.setScene(new Scene(root1));
+                        stage.setResizable(false);
+                        stage.getIcons().add(new Image("lk.ijse.project_rio.assets/logo.png"));
+                        stage.show();
+                    }));
+                    timeline.play();
+                }else{
+                    LoginMessageController.loginunsuccessfulmsg();
+                }
             }
         } catch (SQLException e) {
             System.out.println(e);

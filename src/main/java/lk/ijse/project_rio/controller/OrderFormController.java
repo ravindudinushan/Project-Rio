@@ -219,6 +219,7 @@ public class OrderFormController {
                 generateNextOrderId();
 
                 String balance = balancelbl.getText();
+                String printcash = txtpaidamount.getText();
                 txtCustId.setValue(null);
                 txtItemId.setValue(null);
                 lblCustName.setText("");
@@ -235,7 +236,7 @@ public class OrderFormController {
                 //txtmoremoney.setText("");
                 boolean result = AlertController.okconfirmmessage("Do you want the bill ?");
 
-                if (result) { String printcash = txtpaidamount.getText();
+                if (result) {
 
                     Map<String, Object> parameters = new HashMap<>();
                     parameters.put("param1", printcash);
