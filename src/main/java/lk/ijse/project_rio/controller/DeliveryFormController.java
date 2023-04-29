@@ -162,7 +162,7 @@ public class DeliveryFormController {
 
     @FXML
     void txtSearchDeliveryIdOnAction(ActionEvent event) {
-        String delid = txtSearchOrderId.getText();
+        String delid = txtSearchDeliveryId.getText();
         try {
             Delivery delivery = DeliveryModel.findBydeliveryId(delid);
             if(delivery!=null) {
