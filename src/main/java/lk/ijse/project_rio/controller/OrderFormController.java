@@ -29,10 +29,7 @@ import lk.ijse.project_rio.model.OrderModel;
 import lk.ijse.project_rio.util.AlertController;
 import lk.ijse.project_rio.util.TimeAndDateController;
 import lk.ijse.project_rio.util.ValidateField;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.view.JasperViewer;
 
 public class OrderFormController {
@@ -235,7 +232,6 @@ public class OrderFormController {
                 lblNetTotle.setVisible(false);
                 //txtmoremoney.setText("");
                 boolean result = AlertController.okconfirmmessage("Do you want the bill ?");
-
                 if (result) {
 
                     Map<String, Object> parameters = new HashMap<>();
@@ -249,7 +245,9 @@ public class OrderFormController {
                         JasperViewer.viewReport(jasperPrint, false);
                     } catch (Exception e) {
                         e.printStackTrace();
-                    }}
+                    }
+                }
+
             } else {
                 new Alert(Alert.AlertType.ERROR, "Order Not Placed").show();
             }
@@ -347,12 +345,14 @@ public class OrderFormController {
         });
     }
 
+    String custemail;
     @FXML
     void cobCustOnAction(ActionEvent event) {
         String custId = txtCustId.getValue();
 
         try {
             String name = CustomerModel.getCustName(custId);
+            custemail = CustomerModel.getCustEmail(custId);
             lblCustName.setText(name);
         } catch (Exception e) {
             System.out.println(e);

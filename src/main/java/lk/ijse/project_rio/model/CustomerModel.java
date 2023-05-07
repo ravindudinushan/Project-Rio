@@ -111,4 +111,16 @@ public class CustomerModel {
         }
         return null;
     }
+
+    public static String getCustEmail(String custId) throws SQLException {
+        String sql = "SELECT email FROM customer WHERE custId=?";
+        ResultSet resultSet = CrudUtil.execute(sql,custId);
+
+        if(resultSet.next()){
+            return (new String(
+                    resultSet.getString(1)
+            ));
+        }
+        return null;
+    }
 }

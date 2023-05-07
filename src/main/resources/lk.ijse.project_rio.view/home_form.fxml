@@ -19,8 +19,8 @@
             <Image url="@../lk.ijse.project_rio.assets/home.png" />
          </image>
       </ImageView>
-      <PieChart fx:id="piechartincomelast5months" layoutX="54.0" layoutY="53.0" prefHeight="260.0" prefWidth="272.0" style="-fx-background-color: white; -fx-background-radius: 10;" title="TOP 5 SOLD ITEMS THIS MONTH" />
-      <BarChart fx:id="lowstockitems" layoutX="374.0" layoutY="53.0" onMouseEntered="#lowstockitemsOnMouseEntered" onMouseExited="#lowstockitemsOnMouseExited" prefHeight="260.0" prefWidth="272.0" style="-fx-background-color: white; -fx-background-radius: 10;" title="LOW STOCK ITEMS">
+      <PieChart fx:id="piechartincomelast5months" layoutX="162.0" layoutY="53.0" prefHeight="260.0" prefWidth="272.0" style="-fx-background-color: white; -fx-background-radius: 10;" title="TOP 5 SOLD ITEMS THIS MONTH" />
+      <BarChart fx:id="lowstockitems" layoutX="592.0" layoutY="53.0" onMouseEntered="#lowstockitemsOnMouseEntered" onMouseExited="#lowstockitemsOnMouseExited" prefHeight="260.0" prefWidth="272.0" style="-fx-background-color: white; -fx-background-radius: 10;" title="LOW STOCK ITEMS">
          <xAxis>
             <CategoryAxis side="BOTTOM" />
          </xAxis>
@@ -28,7 +28,7 @@
             <NumberAxis side="LEFT" />
          </yAxis>
       </BarChart>
-      <AreaChart fx:id="areachart" layoutX="54.0" layoutY="342.0" onMouseClicked="#areachartOnMouseClicked" prefHeight="271.0" prefWidth="595.0" style="-fx-background-color: white; -fx-background-radius: 10;" title="Monthly Income Comparison">
+      <AreaChart fx:id="areachart" layoutX="202.0" layoutY="339.0" onMouseClicked="#areachartOnMouseClicked" prefHeight="271.0" prefWidth="595.0" style="-fx-background-color: white; -fx-background-radius: 10;" title="Monthly Income Comparison">
          <xAxis>
             <CategoryAxis side="BOTTOM" />
          </xAxis>
@@ -36,13 +36,13 @@
             <NumberAxis side="LEFT" />
          </yAxis>
       </AreaChart>
-      <Label layoutX="500.0" layoutY="353.0" text="Year:" />
-      <TextField fx:id="txtyear" layoutX="534.0" layoutY="349.0" onAction="#txtyearOnAction" onMouseClicked="#txtyearOnMouseClicked" prefHeight="25.0" prefWidth="68.0" promptText="Enter Year" style="-fx-background-radius: 10;">
+      <Label layoutX="660.0" layoutY="353.0" text="Year:" />
+      <TextField fx:id="txtyear" layoutX="694.0" layoutY="349.0" onAction="#txtyearOnAction" onMouseClicked="#txtyearOnMouseClicked" prefHeight="25.0" prefWidth="68.0" promptText="Enter Year" style="-fx-background-radius: 10;">
          <font>
             <Font name="Times New Roman" size="12.0" />
          </font>
       </TextField>
-      <Label fx:id="lblwrongyearformat" layoutX="253.0" layoutY="439.0" prefHeight="47.0" prefWidth="247.0" text="Wrong Year Format" textFill="RED" visible="false">
+      <Label fx:id="lblwrongyearformat" layoutX="434.0" layoutY="441.0" prefHeight="47.0" prefWidth="247.0" text="Wrong Year Format" textFill="RED" visible="false">
          <font>
             <Font name="Times New Roman" size="21.0" />
          </font>

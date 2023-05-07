@@ -284,7 +284,7 @@ public class EmployeeFormController {
                                                     Employee employee = new Employee(id, name, nic, dob, address, email, job, contact, salary);
 
                                                     try {
-                                                        boolean isSaved = EmployeeModel.save(employee);
+                                                        boolean isSaved = EmployeeModel.update(employee);
                                                         if (isSaved) {
                                                             AlertController.confirmmessage("New employee added successfully");
                                                             txtempid.setText(null);
@@ -298,9 +298,7 @@ public class EmployeeFormController {
                                                             getAll();
                                                         }
 
-                                                    } catch (SQLIntegrityConstraintViolationException e) {
-                                                        AlertController.errormessage("This Employee ID already exists.");
-                                                    } catch (SQLException e) {
+                                                    }  catch (SQLException e) {
                                                         System.out.println(e);
                                                         new Alert(Alert.AlertType.ERROR, "something went wrong!").show();
                                                     }
